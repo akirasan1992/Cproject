@@ -42,18 +42,19 @@ private slots:
 
     void on_removespecks_clicked();
 
-    void makePlot();
-    void writetoqvector(vector<int> a);
+    void makePlot(QVector<double> x, QVector<double> y);
 
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
 
+    void on_drawlanes_clicked();
+
 private:
     Ui::MainWindow *ui;
     QImage image;
     QImage initimage;
-    vector<int> counts;
+    vector<double> counts;
     QVector<double> qcounts;
     bool isGelFile;
     QRubberBand* rubberBand;

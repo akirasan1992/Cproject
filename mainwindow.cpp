@@ -217,34 +217,24 @@ void MainWindow::on_detectlanes_clicked()
             }
         }
     }
-    writetoqvector((counts));
-    print_vec(counts);
-    cout << "counts size" << counts.size() << endl;
-    MainWindow::makePlot();
-}
-
-void MainWindow::writetoqvector(vector<int> a) {
-    qcounts.clear();
-    qcounts.squeeze();
-    for (int element : a) {
-        qcounts.append(element);
-    }
-}
-
-void MainWindow::makePlot() {
+    qcounts = QVector<double>::fromStdVector(counts);
     QVector<double> x(image.width());
     for (int i=0; i<image.width(); ++i)
     {
       x[i] = i;
     }
+    MainWindow::makePlot(x, qcounts);
+}
+
+void MainWindow::makePlot(QVector<double> x, QVector<double> y) {
     ui->customPlot->addGraph();
-    ui->customPlot->graph(0)->setData(x, qcounts);
+    ui->customPlot->graph(0)->setData(x, y);
     // give the axes some labels:
     ui->customPlot->xAxis->setLabel("x");
     ui->customPlot->yAxis->setLabel("y");
-    // set axes ranges, so we see all data:
-    ui->customPlot->xAxis->setRange(0, image.width());
-    ui->customPlot->yAxis->setRange(0, image.height());
+    ui->customPlot->rescaleAxes();
+    //ui->customPlot->xAxis->setRange(0, x.size());
+    //ui->customPlot->yAxis->setRange(0, image.height());
     ui->customPlot->replot();
 }
 
@@ -318,3 +308,31 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
         rubberBand->hide();
     }
 }
+
+void MainWindow::on_drawlanes_clicked()
+{
+    int xval = 120;
+    bool ok;
+    QInputDialog inputDialog;
+    inputDialog.setOption(QInputDialog::NoButtons);
+    QString text =  inputDialog.getText(NULL ,"x value:",
+                                             "x value:", QLineEdit::Normal,
+                                             "120", &ok);
+    if (ok && !text.isEmpty())
+    {
+        xval = atoi(text.toStdString().c_str());
+    }
+    QVector<double> data;
+    for (int y = 0; y < image.height(); y++) {
+        QRgb temp = image.pixel(xval, y);
+        int grayval = qGray(temp);
+        data.append(grayval);
+    }
+    QVector<double> x(image.height());
+    for (int i=0; i<image.height(); ++i)
+    {
+      x[i] = i;
+    }
+    makePlot(x,data);
+}
+
