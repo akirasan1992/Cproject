@@ -109,7 +109,7 @@ void MainWindow::on_removespecks_clicked()
 {
     //Light pixels are more than the threshold
     //Dark pixels are less than the threshold
-    //We should probably make this configurable
+
     int darkThreshold = 220;
     int speckThreshold = 5;
 
