@@ -6,6 +6,8 @@
 #include <QFileDialog>
 #include <QInputDialog>
 //git test
+//ana test
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     isCropping(false),
