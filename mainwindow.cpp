@@ -8,6 +8,10 @@
 //git test
 //git test 2
 
+<<<<<<< HEAD
+=======
+//jhu test 3
+>>>>>>> origin/master
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     isCropping(false),
