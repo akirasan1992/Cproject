@@ -7,7 +7,8 @@
 #include <QInputDialog>
 //git test
 //git test 2
-// ana test 3
+
+//jhu test 3
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     isCropping(false),
