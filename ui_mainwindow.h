@@ -37,35 +37,35 @@ public:
     QWidget *centralWidget;
     QGridLayout *gridLayout_5;
     QGridLayout *maingrid;
-    QLabel *imagelabel;
-    QFrame *line;
-    QPushButton *detectlanes;
     QFrame *line_2;
     QCustomPlot *customPlot;
-    QPushButton *drawlanes;
+    QLabel *imagelabel;
     QPushButton *labellanes;
     QPushButton *removesmear;
     QPushButton *plot;
     QLineEdit *imgadd;
     QPushButton *loadimage;
-    QPushButton *reset;
-    QPushButton *baseline;
-    QPushButton *background;
-    QPushButton *normalizearea;
-    QPushButton *calculatearea;
-    QPushButton *invertcolors;
-    QPushButton *linearize;
+    QFrame *line;
+    QPushButton *detectlanes;
+    QPushButton *drawlanes;
     QPushButton *orientation;
-    QPushButton *crop;
-    QCheckBox *checkBox;
-    QLabel *brightness;
-    QSlider *horizontalSlider;
-    QLabel *contrast;
-    QSlider *horizontalSlider_2;
-    QSpinBox *speck;
+    QPushButton *baseline;
+    QSlider *BrightnessSlider;
+    QPushButton *reset;
     QPushButton *removespecks;
-    QPushButton *horizontalflip;
+    QPushButton *linearize;
+    QPushButton *background;
     QPushButton *verticalflip;
+    QPushButton *invertcolors;
+    QCheckBox *checkBox;
+    QSlider *ContrastSlider;
+    QPushButton *crop;
+    QPushButton *calculatearea;
+    QPushButton *horizontalflip;
+    QSpinBox *speck;
+    QPushButton *normalizearea;
+    QPushButton *ContrastButton;
+    QPushButton *brightnessbutton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -84,38 +84,11 @@ public:
         maingrid = new QGridLayout();
         maingrid->setSpacing(6);
         maingrid->setObjectName(QStringLiteral("maingrid"));
-        imagelabel = new QLabel(centralWidget);
-        imagelabel->setObjectName(QStringLiteral("imagelabel"));
+        line_2 = new QFrame(centralWidget);
+        line_2->setObjectName(QStringLiteral("line_2"));
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(imagelabel->sizePolicy().hasHeightForWidth());
-        imagelabel->setSizePolicy(sizePolicy);
-        imagelabel->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
-
-        maingrid->addWidget(imagelabel, 0, 0, 4, 7);
-
-        line = new QFrame(centralWidget);
-        line->setObjectName(QStringLiteral("line"));
-        sizePolicy.setHeightForWidth(line->sizePolicy().hasHeightForWidth());
-        line->setSizePolicy(sizePolicy);
-        line->setFrameShape(QFrame::VLine);
-        line->setFrameShadow(QFrame::Sunken);
-
-        maingrid->addWidget(line, 0, 7, 9, 1);
-
-        detectlanes = new QPushButton(centralWidget);
-        detectlanes->setObjectName(QStringLiteral("detectlanes"));
-        sizePolicy.setHeightForWidth(detectlanes->sizePolicy().hasHeightForWidth());
-        detectlanes->setSizePolicy(sizePolicy);
-        QFont font;
-        font.setPointSize(10);
-        detectlanes->setFont(font);
-
-        maingrid->addWidget(detectlanes, 0, 8, 1, 1);
-
-        line_2 = new QFrame(centralWidget);
-        line_2->setObjectName(QStringLiteral("line_2"));
         sizePolicy.setHeightForWidth(line_2->sizePolicy().hasHeightForWidth());
         line_2->setSizePolicy(sizePolicy);
         line_2->setFrameShape(QFrame::VLine);
@@ -130,18 +103,20 @@ public:
 
         maingrid->addWidget(customPlot, 0, 10, 4, 4);
 
-        drawlanes = new QPushButton(centralWidget);
-        drawlanes->setObjectName(QStringLiteral("drawlanes"));
-        sizePolicy.setHeightForWidth(drawlanes->sizePolicy().hasHeightForWidth());
-        drawlanes->setSizePolicy(sizePolicy);
-        drawlanes->setFont(font);
+        imagelabel = new QLabel(centralWidget);
+        imagelabel->setObjectName(QStringLiteral("imagelabel"));
+        sizePolicy.setHeightForWidth(imagelabel->sizePolicy().hasHeightForWidth());
+        imagelabel->setSizePolicy(sizePolicy);
+        imagelabel->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
 
-        maingrid->addWidget(drawlanes, 1, 8, 1, 1);
+        maingrid->addWidget(imagelabel, 0, 0, 4, 7);
 
         labellanes = new QPushButton(centralWidget);
         labellanes->setObjectName(QStringLiteral("labellanes"));
         sizePolicy.setHeightForWidth(labellanes->sizePolicy().hasHeightForWidth());
         labellanes->setSizePolicy(sizePolicy);
+        QFont font;
+        font.setPointSize(10);
         labellanes->setFont(font);
 
         maingrid->addWidget(labellanes, 2, 8, 1, 1);
@@ -178,61 +153,30 @@ public:
 
         maingrid->addWidget(loadimage, 5, 5, 1, 1);
 
-        reset = new QPushButton(centralWidget);
-        reset->setObjectName(QStringLiteral("reset"));
-        sizePolicy.setHeightForWidth(reset->sizePolicy().hasHeightForWidth());
-        reset->setSizePolicy(sizePolicy);
-        reset->setFont(font);
+        line = new QFrame(centralWidget);
+        line->setObjectName(QStringLiteral("line"));
+        sizePolicy.setHeightForWidth(line->sizePolicy().hasHeightForWidth());
+        line->setSizePolicy(sizePolicy);
+        line->setFrameShape(QFrame::VLine);
+        line->setFrameShadow(QFrame::Sunken);
 
-        maingrid->addWidget(reset, 5, 6, 1, 1);
+        maingrid->addWidget(line, 0, 7, 9, 1);
 
-        baseline = new QPushButton(centralWidget);
-        baseline->setObjectName(QStringLiteral("baseline"));
-        sizePolicy.setHeightForWidth(baseline->sizePolicy().hasHeightForWidth());
-        baseline->setSizePolicy(sizePolicy);
-        baseline->setFont(font);
+        detectlanes = new QPushButton(centralWidget);
+        detectlanes->setObjectName(QStringLiteral("detectlanes"));
+        sizePolicy.setHeightForWidth(detectlanes->sizePolicy().hasHeightForWidth());
+        detectlanes->setSizePolicy(sizePolicy);
+        detectlanes->setFont(font);
 
-        maingrid->addWidget(baseline, 5, 10, 1, 1);
+        maingrid->addWidget(detectlanes, 0, 8, 1, 1);
 
-        background = new QPushButton(centralWidget);
-        background->setObjectName(QStringLiteral("background"));
-        sizePolicy.setHeightForWidth(background->sizePolicy().hasHeightForWidth());
-        background->setSizePolicy(sizePolicy);
-        background->setFont(font);
+        drawlanes = new QPushButton(centralWidget);
+        drawlanes->setObjectName(QStringLiteral("drawlanes"));
+        sizePolicy.setHeightForWidth(drawlanes->sizePolicy().hasHeightForWidth());
+        drawlanes->setSizePolicy(sizePolicy);
+        drawlanes->setFont(font);
 
-        maingrid->addWidget(background, 5, 11, 1, 1);
-
-        normalizearea = new QPushButton(centralWidget);
-        normalizearea->setObjectName(QStringLiteral("normalizearea"));
-        sizePolicy.setHeightForWidth(normalizearea->sizePolicy().hasHeightForWidth());
-        normalizearea->setSizePolicy(sizePolicy);
-        normalizearea->setFont(font);
-
-        maingrid->addWidget(normalizearea, 5, 12, 1, 1);
-
-        calculatearea = new QPushButton(centralWidget);
-        calculatearea->setObjectName(QStringLiteral("calculatearea"));
-        sizePolicy.setHeightForWidth(calculatearea->sizePolicy().hasHeightForWidth());
-        calculatearea->setSizePolicy(sizePolicy);
-        calculatearea->setFont(font);
-
-        maingrid->addWidget(calculatearea, 5, 13, 1, 1);
-
-        invertcolors = new QPushButton(centralWidget);
-        invertcolors->setObjectName(QStringLiteral("invertcolors"));
-        sizePolicy.setHeightForWidth(invertcolors->sizePolicy().hasHeightForWidth());
-        invertcolors->setSizePolicy(sizePolicy);
-        invertcolors->setFont(font);
-
-        maingrid->addWidget(invertcolors, 6, 0, 1, 2);
-
-        linearize = new QPushButton(centralWidget);
-        linearize->setObjectName(QStringLiteral("linearize"));
-        sizePolicy.setHeightForWidth(linearize->sizePolicy().hasHeightForWidth());
-        linearize->setSizePolicy(sizePolicy);
-        linearize->setFont(font);
-
-        maingrid->addWidget(linearize, 6, 2, 1, 1);
+        maingrid->addWidget(drawlanes, 1, 8, 1, 1);
 
         orientation = new QPushButton(centralWidget);
         orientation->setObjectName(QStringLiteral("orientation"));
@@ -242,59 +186,31 @@ public:
 
         maingrid->addWidget(orientation, 6, 3, 1, 2);
 
-        crop = new QPushButton(centralWidget);
-        crop->setObjectName(QStringLiteral("crop"));
-        sizePolicy.setHeightForWidth(crop->sizePolicy().hasHeightForWidth());
-        crop->setSizePolicy(sizePolicy);
-        crop->setFont(font);
+        baseline = new QPushButton(centralWidget);
+        baseline->setObjectName(QStringLiteral("baseline"));
+        sizePolicy.setHeightForWidth(baseline->sizePolicy().hasHeightForWidth());
+        baseline->setSizePolicy(sizePolicy);
+        baseline->setFont(font);
 
-        maingrid->addWidget(crop, 6, 5, 1, 1);
+        maingrid->addWidget(baseline, 5, 10, 1, 1);
 
-        checkBox = new QCheckBox(centralWidget);
-        checkBox->setObjectName(QStringLiteral("checkBox"));
-        sizePolicy.setHeightForWidth(checkBox->sizePolicy().hasHeightForWidth());
-        checkBox->setSizePolicy(sizePolicy);
+        BrightnessSlider = new QSlider(centralWidget);
+        BrightnessSlider->setObjectName(QStringLiteral("BrightnessSlider"));
+        sizePolicy.setHeightForWidth(BrightnessSlider->sizePolicy().hasHeightForWidth());
+        BrightnessSlider->setSizePolicy(sizePolicy);
+        BrightnessSlider->setMinimum(-200);
+        BrightnessSlider->setMaximum(200);
+        BrightnessSlider->setOrientation(Qt::Horizontal);
 
-        maingrid->addWidget(checkBox, 6, 8, 1, 1);
+        maingrid->addWidget(BrightnessSlider, 7, 1, 1, 2);
 
-        brightness = new QLabel(centralWidget);
-        brightness->setObjectName(QStringLiteral("brightness"));
-        sizePolicy.setHeightForWidth(brightness->sizePolicy().hasHeightForWidth());
-        brightness->setSizePolicy(sizePolicy);
-        brightness->setFont(font);
+        reset = new QPushButton(centralWidget);
+        reset->setObjectName(QStringLiteral("reset"));
+        sizePolicy.setHeightForWidth(reset->sizePolicy().hasHeightForWidth());
+        reset->setSizePolicy(sizePolicy);
+        reset->setFont(font);
 
-        maingrid->addWidget(brightness, 7, 0, 1, 1);
-
-        horizontalSlider = new QSlider(centralWidget);
-        horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
-        sizePolicy.setHeightForWidth(horizontalSlider->sizePolicy().hasHeightForWidth());
-        horizontalSlider->setSizePolicy(sizePolicy);
-        horizontalSlider->setOrientation(Qt::Horizontal);
-
-        maingrid->addWidget(horizontalSlider, 7, 1, 1, 2);
-
-        contrast = new QLabel(centralWidget);
-        contrast->setObjectName(QStringLiteral("contrast"));
-        sizePolicy.setHeightForWidth(contrast->sizePolicy().hasHeightForWidth());
-        contrast->setSizePolicy(sizePolicy);
-        contrast->setFont(font);
-
-        maingrid->addWidget(contrast, 7, 3, 1, 1);
-
-        horizontalSlider_2 = new QSlider(centralWidget);
-        horizontalSlider_2->setObjectName(QStringLiteral("horizontalSlider_2"));
-        sizePolicy.setHeightForWidth(horizontalSlider_2->sizePolicy().hasHeightForWidth());
-        horizontalSlider_2->setSizePolicy(sizePolicy);
-        horizontalSlider_2->setOrientation(Qt::Horizontal);
-
-        maingrid->addWidget(horizontalSlider_2, 7, 4, 1, 2);
-
-        speck = new QSpinBox(centralWidget);
-        speck->setObjectName(QStringLiteral("speck"));
-        sizePolicy.setHeightForWidth(speck->sizePolicy().hasHeightForWidth());
-        speck->setSizePolicy(sizePolicy);
-
-        maingrid->addWidget(speck, 8, 0, 1, 1);
+        maingrid->addWidget(reset, 5, 6, 1, 1);
 
         removespecks = new QPushButton(centralWidget);
         removespecks->setObjectName(QStringLiteral("removespecks"));
@@ -304,13 +220,21 @@ public:
 
         maingrid->addWidget(removespecks, 8, 1, 1, 2);
 
-        horizontalflip = new QPushButton(centralWidget);
-        horizontalflip->setObjectName(QStringLiteral("horizontalflip"));
-        sizePolicy.setHeightForWidth(horizontalflip->sizePolicy().hasHeightForWidth());
-        horizontalflip->setSizePolicy(sizePolicy);
-        horizontalflip->setFont(font);
+        linearize = new QPushButton(centralWidget);
+        linearize->setObjectName(QStringLiteral("linearize"));
+        sizePolicy.setHeightForWidth(linearize->sizePolicy().hasHeightForWidth());
+        linearize->setSizePolicy(sizePolicy);
+        linearize->setFont(font);
 
-        maingrid->addWidget(horizontalflip, 8, 3, 1, 2);
+        maingrid->addWidget(linearize, 6, 2, 1, 1);
+
+        background = new QPushButton(centralWidget);
+        background->setObjectName(QStringLiteral("background"));
+        sizePolicy.setHeightForWidth(background->sizePolicy().hasHeightForWidth());
+        background->setSizePolicy(sizePolicy);
+        background->setFont(font);
+
+        maingrid->addWidget(background, 5, 11, 1, 1);
 
         verticalflip = new QPushButton(centralWidget);
         verticalflip->setObjectName(QStringLiteral("verticalflip"));
@@ -319,6 +243,78 @@ public:
         verticalflip->setFont(font);
 
         maingrid->addWidget(verticalflip, 8, 5, 1, 1);
+
+        invertcolors = new QPushButton(centralWidget);
+        invertcolors->setObjectName(QStringLiteral("invertcolors"));
+        sizePolicy.setHeightForWidth(invertcolors->sizePolicy().hasHeightForWidth());
+        invertcolors->setSizePolicy(sizePolicy);
+        invertcolors->setFont(font);
+
+        maingrid->addWidget(invertcolors, 6, 0, 1, 2);
+
+        checkBox = new QCheckBox(centralWidget);
+        checkBox->setObjectName(QStringLiteral("checkBox"));
+        sizePolicy.setHeightForWidth(checkBox->sizePolicy().hasHeightForWidth());
+        checkBox->setSizePolicy(sizePolicy);
+
+        maingrid->addWidget(checkBox, 6, 8, 1, 1);
+
+        ContrastSlider = new QSlider(centralWidget);
+        ContrastSlider->setObjectName(QStringLiteral("ContrastSlider"));
+        sizePolicy.setHeightForWidth(ContrastSlider->sizePolicy().hasHeightForWidth());
+        ContrastSlider->setSizePolicy(sizePolicy);
+        ContrastSlider->setOrientation(Qt::Horizontal);
+
+        maingrid->addWidget(ContrastSlider, 7, 4, 1, 2);
+
+        crop = new QPushButton(centralWidget);
+        crop->setObjectName(QStringLiteral("crop"));
+        sizePolicy.setHeightForWidth(crop->sizePolicy().hasHeightForWidth());
+        crop->setSizePolicy(sizePolicy);
+        crop->setFont(font);
+
+        maingrid->addWidget(crop, 6, 5, 1, 1);
+
+        calculatearea = new QPushButton(centralWidget);
+        calculatearea->setObjectName(QStringLiteral("calculatearea"));
+        sizePolicy.setHeightForWidth(calculatearea->sizePolicy().hasHeightForWidth());
+        calculatearea->setSizePolicy(sizePolicy);
+        calculatearea->setFont(font);
+
+        maingrid->addWidget(calculatearea, 5, 13, 1, 1);
+
+        horizontalflip = new QPushButton(centralWidget);
+        horizontalflip->setObjectName(QStringLiteral("horizontalflip"));
+        sizePolicy.setHeightForWidth(horizontalflip->sizePolicy().hasHeightForWidth());
+        horizontalflip->setSizePolicy(sizePolicy);
+        horizontalflip->setFont(font);
+
+        maingrid->addWidget(horizontalflip, 8, 3, 1, 2);
+
+        speck = new QSpinBox(centralWidget);
+        speck->setObjectName(QStringLiteral("speck"));
+        sizePolicy.setHeightForWidth(speck->sizePolicy().hasHeightForWidth());
+        speck->setSizePolicy(sizePolicy);
+
+        maingrid->addWidget(speck, 8, 0, 1, 1);
+
+        normalizearea = new QPushButton(centralWidget);
+        normalizearea->setObjectName(QStringLiteral("normalizearea"));
+        sizePolicy.setHeightForWidth(normalizearea->sizePolicy().hasHeightForWidth());
+        normalizearea->setSizePolicy(sizePolicy);
+        normalizearea->setFont(font);
+
+        maingrid->addWidget(normalizearea, 5, 12, 1, 1);
+
+        ContrastButton = new QPushButton(centralWidget);
+        ContrastButton->setObjectName(QStringLiteral("ContrastButton"));
+
+        maingrid->addWidget(ContrastButton, 7, 3, 1, 1);
+
+        brightnessbutton = new QPushButton(centralWidget);
+        brightnessbutton->setObjectName(QStringLiteral("brightnessbutton"));
+
+        maingrid->addWidget(brightnessbutton, 7, 0, 1, 1);
 
 
         gridLayout_5->addLayout(maingrid, 0, 0, 1, 1);
@@ -344,28 +340,28 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         imagelabel->setText(QString());
-        detectlanes->setText(QApplication::translate("MainWindow", "Detect Lanes", 0));
-        drawlanes->setText(QApplication::translate("MainWindow", "Draw Lanes", 0));
         labellanes->setText(QApplication::translate("MainWindow", "Label Lanes", 0));
         removesmear->setText(QApplication::translate("MainWindow", "Remove Smear", 0));
         plot->setText(QApplication::translate("MainWindow", "Plot", 0));
         loadimage->setText(QApplication::translate("MainWindow", "Load Image", 0));
-        reset->setText(QApplication::translate("MainWindow", "Reset", 0));
-        baseline->setText(QApplication::translate("MainWindow", "Baseline", 0));
-        background->setText(QApplication::translate("MainWindow", "Background", 0));
-        normalizearea->setText(QApplication::translate("MainWindow", "Normalize Area", 0));
-        calculatearea->setText(QApplication::translate("MainWindow", "Calculate Area", 0));
-        invertcolors->setText(QApplication::translate("MainWindow", "Invert Colors", 0));
-        linearize->setText(QApplication::translate("MainWindow", "Linearize", 0));
+        detectlanes->setText(QApplication::translate("MainWindow", "Detect Lanes", 0));
+        drawlanes->setText(QApplication::translate("MainWindow", "Draw Lanes", 0));
         orientation->setText(QApplication::translate("MainWindow", "Orientation", 0));
-        crop->setText(QApplication::translate("MainWindow", "Crop", 0));
+        baseline->setText(QApplication::translate("MainWindow", "Baseline", 0));
+        reset->setText(QApplication::translate("MainWindow", "Reset", 0));
+        removespecks->setText(QApplication::translate("MainWindow", "Remove Specks", 0));
+        linearize->setText(QApplication::translate("MainWindow", "Linearize", 0));
+        background->setText(QApplication::translate("MainWindow", "Background", 0));
+        verticalflip->setText(QApplication::translate("MainWindow", "Vertical Flip", 0));
+        invertcolors->setText(QApplication::translate("MainWindow", "Invert Colors", 0));
         checkBox->setText(QApplication::translate("MainWindow", "Plot on\n"
 "same graph", 0));
-        brightness->setText(QApplication::translate("MainWindow", "Brightness", 0));
-        contrast->setText(QApplication::translate("MainWindow", "Contrast", 0));
-        removespecks->setText(QApplication::translate("MainWindow", "Remove Specks", 0));
+        crop->setText(QApplication::translate("MainWindow", "Crop", 0));
+        calculatearea->setText(QApplication::translate("MainWindow", "Calculate Area", 0));
         horizontalflip->setText(QApplication::translate("MainWindow", "Horizontal Flip", 0));
-        verticalflip->setText(QApplication::translate("MainWindow", "Vertical Flip", 0));
+        normalizearea->setText(QApplication::translate("MainWindow", "Normalize Area", 0));
+        ContrastButton->setText(QApplication::translate("MainWindow", "Contrast", 0));
+        brightnessbutton->setText(QApplication::translate("MainWindow", "Brightness", 0));
     } // retranslateUi
 
 };

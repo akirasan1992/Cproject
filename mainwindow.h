@@ -42,6 +42,12 @@ private slots:
 
     void on_removespecks_clicked();
 
+    void on_brightnessbutton_clicked();
+    void on_ContrastButton_clicked();
+    void on_BrightnessSlider_changed(int value);
+    void on_ContrastSlider_changed(int value);
+
+
     void makePlot(QVector<double> x, QVector<double> y);
 
     void mousePressEvent(QMouseEvent *event);
@@ -54,6 +60,9 @@ private:
     Ui::MainWindow *ui;
     QImage image;
     QImage initimage;
+    QImage tempimage;
+    double curralpha;
+    int currbeta;
     vector<double> counts;
     QVector<double> qcounts;
     bool isGelFile;
@@ -61,6 +70,8 @@ private:
     QPoint startPoint;
     QPoint endPoint;
     bool isCropping;
+    bool isBrightness;
+    bool isContrast;
 };
 
 #endif // MAINWINDOW_H
