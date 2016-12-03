@@ -8,15 +8,26 @@
 //git test
 //git test 2
 
-
+int kClamp( int x, int  low, int  high )
+{
+    if ( x < low )       return low;
+    else if ( high < x ) return high;
+    else                 return x;
+}
 //jhu test 3
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     isCropping(false),
+    isBrightness(false),
+    isContrast(false),
+    curralpha (1.0),
+    currbeta (0),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    connect(ui->BrightnessSlider, SIGNAL(valueChanged(int)), this, SLOT(on_BrightnessSlider_changed(int)));
+    connect(ui->ContrastSlider, SIGNAL(valueChanged(int)), this, SLOT(on_ContrastSlider_changed(int)));
 }
 
 MainWindow::~MainWindow()
@@ -106,8 +117,101 @@ void MainWindow::on_linearize_clicked()
     }
 }
 
+//  Brightness Functions
+void MainWindow::on_brightnessbutton_clicked()
+{
+    isBrightness = !isBrightness;
+
+    ui->brightnessbutton->setFlat(isBrightness);
+    if(isBrightness==false)
+    {
+        image=tempimage;
+    }
 
 
+}
+
+void MainWindow::on_BrightnessSlider_changed(int value)
+{
+    if (isBrightness)
+    {
+        cout<<value<<endl;
+        int beta=value;
+        currbeta=beta;
+        QImage BrightImage=image.copy();
+        for (int y = 0; y < image.height(); y++)
+        {
+
+            for (int x = 0; x < image.width(); x++)
+            {
+                QRgb temp = image.pixel(x,y);
+                int grayVal = qGray(temp);
+                int brightgray = kClamp(grayVal*curralpha+beta, 0, 255);
+                QColor brightcolor(brightgray,brightgray,brightgray);
+                BrightImage.setPixelColor(x,y,brightcolor);
+
+            }
+
+        }
+        showpixmap(BrightImage);
+        tempimage=BrightImage;
+    }
+
+}
+
+
+//Contrast functions
+
+void MainWindow::on_ContrastButton_clicked()
+{
+    isContrast = !isContrast;
+
+    ui->ContrastButton->setFlat(isContrast);
+
+
+}
+
+void MainWindow::on_ContrastSlider_changed(int value)
+{
+    if (isContrast)
+    {
+        double alpha;
+
+        if(value < 50)
+        {
+         alpha = (1.0/3.0) + ( value * (2.0/3.0)/49.0);
+        }
+        else if(value == 50)
+        {
+         alpha = 1.0;
+        }
+        else
+        {
+         alpha = 1.0 + ((value-50.0) * (1.0/49.0));
+        }
+        curralpha=alpha;
+
+        QImage ContImage=image.copy();
+        for (int y = 0; y < image.height(); y++)
+        {
+
+            for (int x = 0; x < image.width(); x++)
+            {
+                QRgb temp = image.pixel(x,y);
+                int grayVal = qGray(temp);
+                int contgray = kClamp(grayVal*alpha +currbeta, 0, 255);
+                QColor contcolor(contgray,contgray,contgray);
+                ContImage.setPixelColor(x,y,contcolor);
+
+            }
+
+        }
+        showpixmap(ContImage);
+        tempimage=ContImage;
+
+    }
+
+}
 //This function assumes that the image is just one lane
 //not fully tested yet
 void MainWindow::on_removespecks_clicked()
@@ -302,8 +406,12 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
         QRect myRect(a, b);
 
 
-        image = image.copy(myRect);
-        showpixmap(image);
+        if(b.y() <= image.height() && b.x()<=image.width())
+        {
+            image = image.copy(myRect);
+            showpixmap(image);
+        }
+
         ui->crop->setFlat(false);
 
         delete rubberBand;
