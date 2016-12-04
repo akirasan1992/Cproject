@@ -32,6 +32,8 @@ private slots:
 
     void on_reset_clicked();
 
+    void loadGel(QString imageaddress);
+
     void on_linearize_clicked();
 
     void print_vec(vector<int> b);
@@ -72,6 +74,8 @@ private:
     bool isCropping;
     bool isBrightness;
     bool isContrast;
+    bool isSquareGel;
+    double scalePixel;
 };
 
 #endif // MAINWINDOW_H

@@ -11,6 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 TARGET = ccc
 TEMPLATE = app
 
+INCLUDEPATH += 3rdparty/tiff-4.0.7/libtiff
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -21,3 +22,5 @@ HEADERS  += mainwindow.h \
 
 FORMS    += \
     mainwindow.ui
+
+LIBS += -L"3rdparty/tiff-4.0.7/libtiff" -llibtiff

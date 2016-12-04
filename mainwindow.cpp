@@ -5,6 +5,9 @@
 #include <iomanip>
 #include <QFileDialog>
 #include <QInputDialog>
+#include <tiff.h>
+#include <tiffio.h>
+#include <stdarg.h>
 //git test
 //git test 2
 
@@ -23,12 +26,16 @@ MainWindow::MainWindow(QWidget *parent) :
     isContrast(false),
     curralpha (1.0),
     currbeta (0),
+    isSquareGel(false),
+    scalePixel(1.0),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     connect(ui->BrightnessSlider, SIGNAL(valueChanged(int)), this, SLOT(on_BrightnessSlider_changed(int)));
     connect(ui->ContrastSlider, SIGNAL(valueChanged(int)), this, SLOT(on_ContrastSlider_changed(int)));
 }
+
+
 
 MainWindow::~MainWindow()
 {
@@ -38,6 +45,40 @@ MainWindow::~MainWindow()
 void MainWindow::showpixmap(QImage a) {
     QPixmap p = QPixmap::fromImage(a);
     ui->imagelabel->setPixmap(p.scaled(ui->imagelabel->width(),ui->imagelabel->height(),Qt::KeepAspectRatio,Qt::FastTransformation));
+}
+
+void MainWindow::loadGel(QString imageaddress)
+{
+    uint32_t fileTag = 0;
+    double scaleFactor = 1.0;
+    uint16 count;
+    void *data;
+    //Open the image using the TIFF library and read the tags
+       TIFF* tif = TIFFOpen(imageaddress.toStdString().c_str(), "r");
+       if(tif == nullptr)
+       {
+        cout << "Could not open image" << endl;
+       }
+       else
+       {
+           if(1 == TIFFGetFieldDefaulted(tif, 33445, &count, &data))
+           {
+               fileTag = *(uint32 *)data;
+               if(fileTag == 2)
+               {
+                   isSquareGel = true;
+               }
+               cout << "fileTag: " << fileTag << endl;
+           }
+           if(1 == TIFFGetFieldDefaulted(tif, 33446, &count, &data))
+           {
+               scaleFactor = *(float*)data;
+               scalePixel = scaleFactor;
+               cout << "scalePixel: " << scaleFactor << endl;
+           }
+           TIFFClose(tif);
+       }
+
 }
 
 void MainWindow::on_loadimage_clicked()
@@ -55,6 +96,7 @@ void MainWindow::on_loadimage_clicked()
     if(imageaddress.endsWith(".gel", Qt::CaseInsensitive))
     {
         isGelFile = true;
+        loadGel(imageaddress);
     }
     else
     {
@@ -97,24 +139,53 @@ void MainWindow::on_crop_clicked()
 
 void MainWindow::on_linearize_clicked()
 {
-    const int scaleFactor = 21025;
-    QImage image16bit = image.convertToFormat(QImage::Format_RGB16);
+    QString imageaddress;
+        imageaddress = ui->imgadd->text();
 
-    if(isGelFile)
-    {
-        //for(int i = 0; i < image16bit.width(); i++)
-        //{
-         //   for(int j = 0; j < image16bit.height(); j++)
-          //  {
-           //     int pixVal = image16bit.pixel(i,j);
-            //    float scaledVal = (float)pixVal * (float)pixVal / (float)scaleFactor;
-             //   image16bit.setPixel(i,j,scaledVal);
-              //  cout << "Init: " << pixVal << " Scaled: " << scaledVal << endl;
-            //}
-        //}
-        cout << "Bit depth: " << image16bit.depth() << endl;
-        showpixmap(image16bit);
-    }
+        if(isGelFile)
+        {
+            TIFF* tif = TIFFOpen(imageaddress.toStdString().c_str(), "r");
+            if(tif == nullptr)
+            {
+             cout << "Could not open image" << endl;
+            }
+            else
+            {
+                uint32 imagelength;
+                tsize_t scanline;
+                tdata_t buf;
+                uint32 row;
+                uint32 col;
+
+                TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &imagelength);
+
+                scanline = TIFFScanlineSize(tif);
+                buf = _TIFFmalloc(scanline);
+                int pixCheck = 0;
+                for (row = 0; row < imagelength; row++)
+                {
+                    TIFFReadScanline(tif, buf, row);
+                    for (col = 0; col < scanline; col+=2)
+                    {
+                        uint16 pixVal = ((uint16*)buf)[col];
+                        uint32 longPixVal = pixVal * pixVal;
+                        double newPixVal = longPixVal * scalePixel;
+                        pixCheck++;
+                        uint16 maxVal = 0xFFFF;
+                        uint8 scaledMax = 0xFF;
+
+                        uint8 scaledVal = newPixVal / maxVal * scaledMax;
+                        image.setPixelColor(col/2,row,QColor(scaledVal,scaledVal,scaledVal));
+                        //printf("%f ", newPixVal);
+                    }
+                    //printf("\n");
+                }
+                cout << pixCheck << endl;
+                _TIFFfree(buf);
+                TIFFClose(tif);
+            }
+        }
+        showpixmap(image);
 }
 
 //  Brightness Functions
