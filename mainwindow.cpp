@@ -84,13 +84,11 @@ void MainWindow::loadGel(QString imageaddress)
 void MainWindow::on_loadimage_clicked()
 {
     QString imageaddress;
-    imageaddress = ui->imgadd->text();
-    if(ui->imgadd->text().isNull() || ui->imgadd->text().isEmpty())
-    {
+
         imageaddress = QDir::toNativeSeparators(QFileDialog::getOpenFileName(this, tr("Select image"), "C:\\", tr("Images (*.png *.gel *.jpg)")));
         cout << imageaddress.toStdString() << endl;
         ui->imgadd->setText(imageaddress);
-    }
+
     image.load(imageaddress);
     initimage.load(imageaddress);
     if(imageaddress.endsWith(".gel", Qt::CaseInsensitive))
@@ -105,34 +103,44 @@ void MainWindow::on_loadimage_clicked()
     showpixmap(image);
     cout << "width" << image.width() << endl;
     cout << "height" << image.height() << endl;
+    undoStack.clear();
+    undoStack.push(image);
 }
 
 void MainWindow::on_invertcolors_clicked()
 {
+    undoStack.push(image);
     image.invertPixels();
     showpixmap(image);
 }
 
 void MainWindow::on_horizontalflip_clicked()
 {
+    undoStack.push(image);
     image = image.mirrored(true, false);
     showpixmap(image);
 }
 
 void MainWindow::on_verticalflip_clicked()
 {
+    undoStack.push(image);
     image = image.mirrored(false, true);
     showpixmap(image);
 }
 
 void MainWindow::on_reset_clicked()
 {
+    undoStack.clear();
     image = initimage;
     showpixmap(image);
+    ui->BrightnessSlider->setSliderPosition(0);
+    ui->ContrastSlider->setSliderPosition(50);
+    undoStack.push(image);
 }
 
 void MainWindow::on_crop_clicked()
 {
+
     isCropping = true;
     ui->crop->setFlat(true);
 }
@@ -141,7 +149,7 @@ void MainWindow::on_linearize_clicked()
 {
     QString imageaddress;
         imageaddress = ui->imgadd->text();
-
+        undoStack.push(image);
         if(isGelFile)
         {
             TIFF* tif = TIFFOpen(imageaddress.toStdString().c_str(), "r");
@@ -185,6 +193,7 @@ void MainWindow::on_linearize_clicked()
                 TIFFClose(tif);
             }
         }
+        image=image.copy(0,0,image.width()/2,image.height());
         showpixmap(image);
 }
 
@@ -196,6 +205,7 @@ void MainWindow::on_brightnessbutton_clicked()
     ui->brightnessbutton->setFlat(isBrightness);
     if(isBrightness==false)
     {
+        undoStack.push(image);
         image=tempimage;
     }
 
@@ -238,7 +248,11 @@ void MainWindow::on_ContrastButton_clicked()
     isContrast = !isContrast;
 
     ui->ContrastButton->setFlat(isContrast);
-
+    if(isContrast==false)
+    {
+        undoStack.push(image);
+        image=tempimage;
+    }
 
 }
 
@@ -345,6 +359,7 @@ void MainWindow::on_removespecks_clicked()
     }
 
     int numPixInSpec = maxBandWidth / speckThreshold;
+    undoStack.push(image);
 
     for (int y = 0; y < image.height(); y++)
     {
@@ -363,7 +378,7 @@ void MainWindow::on_removespecks_clicked()
                 {
                     for(int i = 1; i <= len; i++)
                     {
-                        image.setPixelColor(x-i,y,QColor(grayVal,grayVal,grayVal));
+                       image.setPixelColor(x-i,y,QColor(grayVal,grayVal,grayVal));
                     }
                 }
                 len = 0;
@@ -397,16 +412,19 @@ void MainWindow::on_detectlanes_clicked()
             }
         }
     }
+    qcounts.clear();
     qcounts = QVector<double>::fromStdVector(counts);
     QVector<double> x(image.width());
     for (int i=0; i<image.width(); ++i)
     {
       x[i] = i;
     }
-    MainWindow::makePlot(x, qcounts);
+    MainWindow::findpeaks();
+    //MainWindow::makePlot(x, qcounts);
 }
 
 void MainWindow::makePlot(QVector<double> x, QVector<double> y) {
+    ui->customPlot->clearGraphs();
     ui->customPlot->addGraph();
     ui->customPlot->graph(0)->setData(x, y);
     // give the axes some labels:
@@ -476,7 +494,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 
         QRect myRect(a, b);
 
-
+        undoStack.push(image);
         if(b.y() <= image.height() && b.x()<=image.width())
         {
             image = image.copy(myRect);
@@ -495,28 +513,193 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 
 void MainWindow::on_drawlanes_clicked()
 {
-    int xval = 120;
+    int xval = 1;
     bool ok;
     QInputDialog inputDialog;
     inputDialog.setOption(QInputDialog::NoButtons);
-    QString text =  inputDialog.getText(NULL ,"x value:",
-                                             "x value:", QLineEdit::Normal,
-                                             "120", &ok);
+    QString text =  inputDialog.getText(NULL ,"lane number:",
+                                             "lane number:", QLineEdit::Normal,
+                                             "1", &ok);
     if (ok && !text.isEmpty())
     {
         xval = atoi(text.toStdString().c_str());
     }
-    QVector<double> data;
+    currdata.clear();
     for (int y = 0; y < image.height(); y++) {
-        QRgb temp = image.pixel(xval, y);
+        QRgb temp = image.pixel(peaklocations[xval-1], y);
         int grayval = qGray(temp);
-        data.append(grayval);
+        currdata.append(255-grayval);
     }
     QVector<double> x(image.height());
     for (int i=0; i<image.height(); ++i)
     {
       x[i] = i;
     }
-    makePlot(x,data);
+    makePlot(x,currdata);
 }
 
+QVector<double> MainWindow::initialguess(int n) {
+    QVector<double> temp(qcounts);
+    int start = 0;
+    int end = qcounts.size();
+    while (temp.first() == 0) {
+        start+=1;
+        temp.pop_front();
+    }
+    while (temp.last() == 0) {
+        end-=1;
+        temp.pop_back();
+    }
+    QVector<double> init(n);
+    int interval = (end-start)/(n+1);
+    int curr = start;
+    for (int i=0; i<init.size(); i++) {
+        curr+=interval;
+        init[i] = curr;
+    }
+    return init;
+}
+
+void MainWindow::findpeaks() {
+    peaklocations.clear();
+    ui->customPlot->clearGraphs();
+    detectioncomplete = false;
+    int n = 12;
+    bool ok;
+    QInputDialog inputDialog;
+    inputDialog.setOption(QInputDialog::NoButtons);
+    QString text =  inputDialog.getText(NULL ,"number of lanes:",
+                                             "number of lanes:", QLineEdit::Normal,
+                                             "12", &ok);
+    if (ok && !text.isEmpty())
+    {
+        n = atoi(text.toStdString().c_str());
+    }
+    QVector<double> init(initialguess(n));
+
+    QVector<double> y1(image.width());
+    for (double value: init) {
+        y1[value] = 30;
+    }
+
+    while (!detectioncomplete) {
+        modifylabel(init);
+    }
+    QVector<double> y2(image.width());
+    for (double value: init) {
+        peaklocations.append(value);
+        y2[value] = 30;
+    }
+
+    QVector<double> x(y1.size());
+    for (int i=0; i<x.size(); ++i)
+    {
+      x[i] = i;
+    }
+    ui->customPlot->addGraph();
+    ui->customPlot->graph(0)->setData(x, qcounts);
+    ui->customPlot->addGraph();
+    ui->customPlot->graph(1)->setData(x, y1);
+    ui->customPlot->graph(1)->setPen(QPen(Qt::green));
+    ui->customPlot->addGraph();
+    ui->customPlot->graph(2)->setData(x, y2);
+    ui->customPlot->graph(2)->setPen(QPen(Qt::red));
+    ui->customPlot->xAxis->setLabel("x");
+    ui->customPlot->yAxis->setLabel("y");
+    ui->customPlot->rescaleAxes();
+    ui->customPlot->replot();
+}
+
+
+void MainWindow::on_labellanes_clicked()
+{
+    if (isLabelling) {
+        showpixmap(image);
+        isLabelling = false;
+    }
+    else {
+        QImage aaa(image);
+        aaa = aaa.convertToFormat(QImage::Format_RGB30);
+        QPainter paint(&aaa);
+        QPen paintpen(Qt::red);
+        QFont font("Helvetica");
+        int labelsize = aaa.width()/2/peaklocations.size();
+        font.setPixelSize(labelsize);
+        paintpen.setWidth(image.width()/300);
+        int i = 1;
+        for (double location: peaklocations) {
+            paint.setPen (paintpen);
+            paint.drawLine(location, 0, location, aaa.height()-labelsize);
+            paint.setFont(font);
+            paint.drawText(location-labelsize/2, aaa.height()-labelsize, labelsize, labelsize, Qt::AlignCenter, QString::number(i));
+            i+=1;
+        }
+        showpixmap(aaa);
+        isLabelling = true;
+    }
+}
+
+void MainWindow::modifylabel(QVector<double> &init) {
+    QVector<bool> complete;
+    for (int i=0; i<init.size(); i++) {
+        int start;
+        int end;
+        if (i==0) {
+            start = 0;
+            end = (init[0]+init[1])/2;
+        }
+        else if (i==init.size()-1) {
+            start = (init[i]+init[i-1])/2;
+            end = image.width();
+        } else {
+            start = (init[i]+init[i-1])/2;
+            end = (init[i]+init[i+1])/2;
+        }
+        int sum = 0;
+        int weight = 0;
+        for (int j=start; j<end; j++) {
+            sum+=j*qcounts[j];
+            weight+=qcounts[j];
+        }
+        if (weight != 0) {
+            if (abs(init[i]-sum/weight) <= 1) {
+                complete.append(true);
+            } else {
+                complete.append(false);
+            }
+            init[i]=sum/weight;
+        }
+    }
+    if (complete.contains(false)) {
+        detectioncomplete = false;
+    } else {
+        detectioncomplete = true;
+    }
+}
+
+void MainWindow::on_calculatearea_clicked()
+{
+    int sum = 0;
+    for (double data : currdata) {
+        sum+=data;
+    }
+    QString aaa("area = ");
+    aaa.append(QString::number(sum));
+    ui->arealabel->setText(aaa);
+}
+
+void MainWindow::on_baseline_clicked()
+{
+
+}
+
+void MainWindow::on_undo_clicked()
+{
+    if (!undoStack.isEmpty())
+    {
+        QImage lastImage = undoStack.pop();
+        showpixmap(lastImage);
+        image=lastImage;
+    }
+
+}
