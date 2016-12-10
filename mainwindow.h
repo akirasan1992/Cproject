@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <vector>
 #include <QRubberBand>
+#include <QStack>
 
 using namespace std;
 
@@ -58,6 +59,18 @@ private slots:
 
     void on_drawlanes_clicked();
 
+    void on_labellanes_clicked();
+    void modifylabel(QVector<double> &init);
+    void findpeaks();
+    QVector<double> initialguess(int n);
+
+
+    void on_calculatearea_clicked();
+
+    void on_baseline_clicked();
+
+    void on_undo_clicked();
+
 private:
     Ui::MainWindow *ui;
     QImage image;
@@ -76,6 +89,11 @@ private:
     bool isContrast;
     bool isSquareGel;
     double scalePixel;
+    bool detectioncomplete = false;
+    bool isLabelling = false;
+    QVector<double> peaklocations;
+    QVector<double> currdata;
+    QStack<QImage> undoStack;
 };
 
 #endif // MAINWINDOW_H
