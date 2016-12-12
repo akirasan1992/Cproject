@@ -127,6 +127,7 @@ void MainWindow::on_loadimage_clicked()
         isGelFile = false;
     }
     showpixmap(image);
+
     undoStack.clear();
     undoStack.push(image);
 }
@@ -164,19 +165,23 @@ void MainWindow::on_reset_clicked()
 
 void MainWindow::on_crop_clicked()
 {
+
     if (validimage()) {
         isCropping = true;
         ui->crop->setFlat(true);
     }
+
 }
 
 void MainWindow::on_linearize_clicked()
 {
+
     if (validimage()) {
         QString imageaddress;
             imageaddress = ui->imgadd->text();
             undoStack.push(image);
             if(isGelFile)
+
             {
                 TIFF* tif = TIFFOpen(imageaddress.toStdString().c_str(), "r");
                 if(tif == nullptr)
@@ -219,9 +224,11 @@ void MainWindow::on_linearize_clicked()
                     TIFFClose(tif);
                 }
             }
+
             image=image.copy(0,0,image.width()/2,image.height());
             showpixmap(image);
     }
+
 }
 
 //  Brightness Functions
@@ -229,13 +236,13 @@ void MainWindow::on_brightnessbutton_clicked()
 {
     if (validimage()) {
         isBrightness = !isBrightness;
-
         ui->brightnessbutton->setFlat(isBrightness);
         if(isBrightness==false)
         {
             undoStack.push(image);
             image=tempimage;
         }
+
     }
 }
 
@@ -273,8 +280,10 @@ void MainWindow::on_BrightnessSlider_changed(int value)
 
 void MainWindow::on_ContrastButton_clicked()
 {
+
     if (validimage()) {
         isContrast = !isContrast;
+
 
         ui->ContrastButton->setFlat(isContrast);
         if(isContrast==false)
@@ -396,14 +405,17 @@ void MainWindow::on_removespecks_clicked()
                     maxLen = 0;
                 }
 
+
                 int numPixInSpec = maxBandWidth / speckThreshold;
                 undoStack.push(image);
 
+   
                 for (int y = 0; y < image.height(); y++)
                 {
                     int len = 0;
                     for (int x = 0; x < image.width(); x++)
                     {
+
                         QRgb temp = image.pixel(x,y);
                         int grayVal = qGray(temp);
                         if(grayVal < darkThreshold)
@@ -421,6 +433,7 @@ void MainWindow::on_removespecks_clicked()
                             }
                             len = 0;
                         }
+
                     }
                 }
 
@@ -466,6 +479,7 @@ void MainWindow::on_detectlanes_clicked()
             showpixmap(aaa);
         }
     }
+
 }
 
 QVector<double> MainWindow::generatex(int size) {
@@ -474,6 +488,7 @@ QVector<double> MainWindow::generatex(int size) {
         x[i] = i;
     }
     return x;
+
 }
 
 void MainWindow::makePlot(QVector<double> x, QVector<double> y) {
@@ -563,6 +578,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 
 void MainWindow::on_drawlanes_clicked()
 {
+
     if (validimage()) {
         if (peaklocations.isEmpty()) {
             ui->msgbox->setText("Please detect\nlanes first.");
@@ -630,10 +646,12 @@ void MainWindow::findpeaks() {
     QString text =  inputDialog.getText(NULL ,"number of lanes:",
                                              "number of lanes:", QLineEdit::Normal,
                                              "12", &ok);
+
     if (ok && !text.isEmpty())
     {
         n = atoi(text.toStdString().c_str());
     }
+
     if (n <= 0) {
         ui->msgbox->setText("Please enter a\npositive integer.");
     } else {
@@ -651,6 +669,7 @@ void MainWindow::findpeaks() {
                 peaklocations.append(value);
             }
         }
+
     }
 }
 
@@ -720,6 +739,7 @@ void MainWindow::modifylabel(QVector<double> &init) {
     } else {
         detectioncomplete = true;
     }
+
 }
 
 void MainWindow::on_calculatearea_clicked()
@@ -932,6 +952,7 @@ void MainWindow::confirmbound(QMouseEvent *event) {
 void MainWindow::on_clear_clicked()
 {
     showpixmap(image);
+
 }
 
 void MainWindow::on_undo_clicked()

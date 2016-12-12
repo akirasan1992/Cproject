@@ -86,6 +86,7 @@ public:
         maingrid = new QGridLayout();
         maingrid->setSpacing(6);
         maingrid->setObjectName(QStringLiteral("maingrid"));
+
         lblabel = new QLabel(centralWidget);
         lblabel->setObjectName(QStringLiteral("lblabel"));
         QFont font;
@@ -148,6 +149,7 @@ public:
         labellanes->setFont(font);
 
         maingrid->addWidget(labellanes, 3, 8, 1, 1);
+
 
         loadimage = new QPushButton(centralWidget);
         loadimage->setObjectName(QStringLiteral("loadimage"));
@@ -317,7 +319,6 @@ public:
         bllabel->setFont(font);
 
         maingrid->addWidget(bllabel, 6, 10, 1, 1);
-
         horizontalflip = new QPushButton(centralWidget);
         horizontalflip->setObjectName(QStringLiteral("horizontalflip"));
         sizePolicy.setHeightForWidth(horizontalflip->sizePolicy().hasHeightForWidth());
@@ -341,6 +342,62 @@ public:
         crop->setFont(font);
 
         maingrid->addWidget(crop, 6, 5, 1, 1);
+
+        arealabel = new QLabel(centralWidget);
+        arealabel->setObjectName(QStringLiteral("arealabel"));
+
+        maingrid->addWidget(arealabel, 6, 13, 1, 1);
+
+        removespecks = new QPushButton(centralWidget);
+        removespecks->setObjectName(QStringLiteral("removespecks"));
+        sizePolicy.setHeightForWidth(removespecks->sizePolicy().hasHeightForWidth());
+        removespecks->setSizePolicy(sizePolicy);
+        removespecks->setFont(font);
+
+        maingrid->addWidget(removespecks, 8, 1, 1, 2);
+
+        drawlanes = new QPushButton(centralWidget);
+        drawlanes->setObjectName(QStringLiteral("drawlanes"));
+        sizePolicy.setHeightForWidth(drawlanes->sizePolicy().hasHeightForWidth());
+        drawlanes->setSizePolicy(sizePolicy);
+        drawlanes->setFont(font);
+
+        maingrid->addWidget(drawlanes, 2, 8, 1, 1);
+
+        labellanes = new QPushButton(centralWidget);
+        labellanes->setObjectName(QStringLiteral("labellanes"));
+        sizePolicy.setHeightForWidth(labellanes->sizePolicy().hasHeightForWidth());
+        labellanes->setSizePolicy(sizePolicy);
+        labellanes->setFont(font);
+
+        maingrid->addWidget(labellanes, 1, 8, 1, 1);
+
+        reset = new QPushButton(centralWidget);
+        reset->setObjectName(QStringLiteral("reset"));
+        sizePolicy.setHeightForWidth(reset->sizePolicy().hasHeightForWidth());
+        reset->setSizePolicy(sizePolicy);
+        reset->setFont(font);
+
+        maingrid->addWidget(reset, 5, 6, 1, 1);
+
+        undo = new QPushButton(centralWidget);
+        undo->setObjectName(QStringLiteral("undo"));
+        sizePolicy.setHeightForWidth(undo->sizePolicy().hasHeightForWidth());
+        undo->setSizePolicy(sizePolicy);
+        QFont font1;
+        font1.setPointSize(9);
+        undo->setFont(font1);
+
+        maingrid->addWidget(undo, 6, 6, 1, 1);
+
+        line = new QFrame(centralWidget);
+        line->setObjectName(QStringLiteral("line"));
+        sizePolicy.setHeightForWidth(line->sizePolicy().hasHeightForWidth());
+        line->setSizePolicy(sizePolicy);
+        line->setFrameShape(QFrame::VLine);
+        line->setFrameShadow(QFrame::Sunken);
+
+        maingrid->addWidget(line, 7, 8, 1, 1);
 
 
         gridLayout_5->addLayout(maingrid, 0, 0, 1, 1);
@@ -393,6 +450,7 @@ public:
         horizontalflip->setText(QApplication::translate("MainWindow", "Horizontal Flip", Q_NULLPTR));
         removespecks->setText(QApplication::translate("MainWindow", "Remove Specks", Q_NULLPTR));
         crop->setText(QApplication::translate("MainWindow", "Crop", Q_NULLPTR));
+
     } // retranslateUi
 
 };

@@ -67,6 +67,7 @@
          </font>
         </property>
         <property name="text">
+
          <string>Clear</string>
         </property>
        </widget>
@@ -87,14 +88,17 @@
         </property>
        </widget>
       </item>
+
       <item row="6" column="0" colspan="2">
        <widget class="QPushButton" name="invertcolors">
+
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+
         <property name="font">
          <font>
           <pointsize>10</pointsize>
@@ -113,6 +117,7 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+
         <property name="font">
          <font>
           <pointsize>10</pointsize>
@@ -137,6 +142,7 @@
          </font>
         </property>
         <property name="text">
+
          <string>Label Lanes</string>
         </property>
        </widget>
@@ -159,6 +165,7 @@
         </property>
        </widget>
       </item>
+
       <item row="7" column="3">
        <widget class="QPushButton" name="ContrastButton">
         <property name="text">
@@ -184,6 +191,7 @@
         </property>
        </widget>
       </item>
+
       <item row="0" column="8">
        <widget class="QLabel" name="msglabel">
         <property name="font">
@@ -213,6 +221,7 @@
       </item>
       <item row="8" column="2">
        <widget class="QPushButton" name="verticalflip">
+
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -231,6 +240,7 @@
       </item>
       <item row="6" column="6">
        <widget class="QPushButton" name="undo">
+
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -255,32 +265,29 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
+        <property name="sliderPosition">
+         <number>50</number>
         </property>
         <property name="text">
          <string>Lower Bound</string>
         </property>
        </widget>
       </item>
-      <item row="7" column="1" colspan="2">
-       <widget class="QSlider" name="BrightnessSlider">
+      <item row="8" column="5">
+       <widget class="QPushButton" name="verticalflip">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="minimum">
-         <number>-200</number>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
         </property>
-        <property name="maximum">
-         <number>200</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+        <property name="text">
+         <string>Vertical Flip</string>
         </property>
        </widget>
       </item>
@@ -316,11 +323,6 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
         </property>
         <property name="text">
          <string>Baseline</string>
@@ -359,7 +361,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Background</string>
+         <string>Invert Colors</string>
         </property>
        </widget>
       </item>
@@ -421,13 +423,10 @@
         </property>
        </widget>
       </item>
-      <item row="7" column="4" colspan="2">
-       <widget class="QSlider" name="ContrastSlider">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+      <item row="7" column="0">
+       <widget class="QPushButton" name="brightnessbutton">
+        <property name="text">
+         <string>Brightness</string>
         </property>
         <property name="sliderPosition">
          <number>50</number>
@@ -494,7 +493,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Horizontal Flip</string>
+         <string>Label Lanes</string>
         </property>
        </widget>
       </item>
@@ -518,6 +517,7 @@
       </item>
       <item row="6" column="5">
        <widget class="QPushButton" name="crop">
+
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -526,7 +526,7 @@
         </property>
         <property name="font">
          <font>
-          <pointsize>10</pointsize>
+          <pointsize>9</pointsize>
          </font>
         </property>
         <property name="text">

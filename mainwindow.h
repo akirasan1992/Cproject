@@ -69,6 +69,7 @@ private slots:
 
     void on_undo_clicked();
 
+
     QVector<double> generatex(int size);
 
     void startmovingbaseline();
@@ -93,6 +94,7 @@ private slots:
     void on_lowerbound_clicked();
     void graphlowerbound(int size, double xval);
 
+
 private:
     Ui::MainWindow *ui;
     QImage image;
@@ -116,12 +118,14 @@ private:
     QVector<double> peaklocations;
     QVector<double> currdata;
     QStack<QImage> undoStack;
+
     bool clickedbaseline = false;
     double baselineval;
     double upperbound;
     double lowerbound;
     bool clickedupperbound = false;
     bool clickedlowerbound = false;
+
 };
 
 #endif // MAINWINDOW_H
