@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.8.0
+** Created by: Qt User Interface Compiler version 5.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -86,7 +86,6 @@ public:
         maingrid = new QGridLayout();
         maingrid->setSpacing(6);
         maingrid->setObjectName(QStringLiteral("maingrid"));
-
         lblabel = new QLabel(centralWidget);
         lblabel->setObjectName(QStringLiteral("lblabel"));
         QFont font;
@@ -149,7 +148,6 @@ public:
         labellanes->setFont(font);
 
         maingrid->addWidget(labellanes, 3, 8, 1, 1);
-
 
         loadimage = new QPushButton(centralWidget);
         loadimage->setObjectName(QStringLiteral("loadimage"));
@@ -319,6 +317,7 @@ public:
         bllabel->setFont(font);
 
         maingrid->addWidget(bllabel, 6, 10, 1, 1);
+
         horizontalflip = new QPushButton(centralWidget);
         horizontalflip->setObjectName(QStringLiteral("horizontalflip"));
         sizePolicy.setHeightForWidth(horizontalflip->sizePolicy().hasHeightForWidth());
@@ -343,62 +342,6 @@ public:
 
         maingrid->addWidget(crop, 6, 5, 1, 1);
 
-        arealabel = new QLabel(centralWidget);
-        arealabel->setObjectName(QStringLiteral("arealabel"));
-
-        maingrid->addWidget(arealabel, 6, 13, 1, 1);
-
-        removespecks = new QPushButton(centralWidget);
-        removespecks->setObjectName(QStringLiteral("removespecks"));
-        sizePolicy.setHeightForWidth(removespecks->sizePolicy().hasHeightForWidth());
-        removespecks->setSizePolicy(sizePolicy);
-        removespecks->setFont(font);
-
-        maingrid->addWidget(removespecks, 8, 1, 1, 2);
-
-        drawlanes = new QPushButton(centralWidget);
-        drawlanes->setObjectName(QStringLiteral("drawlanes"));
-        sizePolicy.setHeightForWidth(drawlanes->sizePolicy().hasHeightForWidth());
-        drawlanes->setSizePolicy(sizePolicy);
-        drawlanes->setFont(font);
-
-        maingrid->addWidget(drawlanes, 2, 8, 1, 1);
-
-        labellanes = new QPushButton(centralWidget);
-        labellanes->setObjectName(QStringLiteral("labellanes"));
-        sizePolicy.setHeightForWidth(labellanes->sizePolicy().hasHeightForWidth());
-        labellanes->setSizePolicy(sizePolicy);
-        labellanes->setFont(font);
-
-        maingrid->addWidget(labellanes, 1, 8, 1, 1);
-
-        reset = new QPushButton(centralWidget);
-        reset->setObjectName(QStringLiteral("reset"));
-        sizePolicy.setHeightForWidth(reset->sizePolicy().hasHeightForWidth());
-        reset->setSizePolicy(sizePolicy);
-        reset->setFont(font);
-
-        maingrid->addWidget(reset, 5, 6, 1, 1);
-
-        undo = new QPushButton(centralWidget);
-        undo->setObjectName(QStringLiteral("undo"));
-        sizePolicy.setHeightForWidth(undo->sizePolicy().hasHeightForWidth());
-        undo->setSizePolicy(sizePolicy);
-        QFont font1;
-        font1.setPointSize(9);
-        undo->setFont(font1);
-
-        maingrid->addWidget(undo, 6, 6, 1, 1);
-
-        line = new QFrame(centralWidget);
-        line->setObjectName(QStringLiteral("line"));
-        sizePolicy.setHeightForWidth(line->sizePolicy().hasHeightForWidth());
-        line->setSizePolicy(sizePolicy);
-        line->setFrameShape(QFrame::VLine);
-        line->setFrameShadow(QFrame::Sunken);
-
-        maingrid->addWidget(line, 7, 8, 1, 1);
-
 
         gridLayout_5->addLayout(maingrid, 0, 0, 1, 1);
 
@@ -421,36 +364,35 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         lblabel->setText(QString());
         ublabel->setText(QString());
         msgbox->setText(QString());
-        clear->setText(QApplication::translate("MainWindow", "Clear", Q_NULLPTR));
+        clear->setText(QApplication::translate("MainWindow", "Clear", 0));
         imagelabel->setText(QString());
-        invertcolors->setText(QApplication::translate("MainWindow", "Invert Colors", Q_NULLPTR));
-        upperbound->setText(QApplication::translate("MainWindow", "Upper Bound", Q_NULLPTR));
-        labellanes->setText(QApplication::translate("MainWindow", "Label Lanes", Q_NULLPTR));
-        loadimage->setText(QApplication::translate("MainWindow", "Load Image", Q_NULLPTR));
-        ContrastButton->setText(QApplication::translate("MainWindow", "Contrast", Q_NULLPTR));
-        detectlanes->setText(QApplication::translate("MainWindow", "Detect Lanes", Q_NULLPTR));
-        msglabel->setText(QApplication::translate("MainWindow", "Message", Q_NULLPTR));
-        verticalflip->setText(QApplication::translate("MainWindow", "Vertical Flip", Q_NULLPTR));
-        undo->setText(QApplication::translate("MainWindow", "Undo", Q_NULLPTR));
-        lowerbound->setText(QApplication::translate("MainWindow", "Lower Bound", Q_NULLPTR));
-        brightnessbutton->setText(QApplication::translate("MainWindow", "Brightness", Q_NULLPTR));
-        drawalllanes->setText(QApplication::translate("MainWindow", "Draw All Lanes", Q_NULLPTR));
-        baseline->setText(QApplication::translate("MainWindow", "Baseline", Q_NULLPTR));
-        reset->setText(QApplication::translate("MainWindow", "Reset", Q_NULLPTR));
-        background->setText(QApplication::translate("MainWindow", "Background", Q_NULLPTR));
-        calculatearea->setText(QApplication::translate("MainWindow", "Calculate Area", Q_NULLPTR));
+        invertcolors->setText(QApplication::translate("MainWindow", "Invert Colors", 0));
+        upperbound->setText(QApplication::translate("MainWindow", "Upper Bound", 0));
+        labellanes->setText(QApplication::translate("MainWindow", "Label Lanes", 0));
+        loadimage->setText(QApplication::translate("MainWindow", "Load Image", 0));
+        ContrastButton->setText(QApplication::translate("MainWindow", "Contrast", 0));
+        detectlanes->setText(QApplication::translate("MainWindow", "Detect Lanes", 0));
+        msglabel->setText(QApplication::translate("MainWindow", "Message", 0));
+        verticalflip->setText(QApplication::translate("MainWindow", "Vertical Flip", 0));
+        undo->setText(QApplication::translate("MainWindow", "Undo", 0));
+        lowerbound->setText(QApplication::translate("MainWindow", "Lower Bound", 0));
+        brightnessbutton->setText(QApplication::translate("MainWindow", "Brightness", 0));
+        drawalllanes->setText(QApplication::translate("MainWindow", "Draw All Lanes", 0));
+        baseline->setText(QApplication::translate("MainWindow", "Baseline", 0));
+        reset->setText(QApplication::translate("MainWindow", "Reset", 0));
+        background->setText(QApplication::translate("MainWindow", "Background", 0));
+        calculatearea->setText(QApplication::translate("MainWindow", "Calculate Area", 0));
         arealabel->setText(QString());
-        linearize->setText(QApplication::translate("MainWindow", "Linearize", Q_NULLPTR));
-        drawlanes->setText(QApplication::translate("MainWindow", "Draw Lanes", Q_NULLPTR));
+        linearize->setText(QApplication::translate("MainWindow", "Linearize", 0));
+        drawlanes->setText(QApplication::translate("MainWindow", "Draw Lanes", 0));
         bllabel->setText(QString());
-        horizontalflip->setText(QApplication::translate("MainWindow", "Horizontal Flip", Q_NULLPTR));
-        removespecks->setText(QApplication::translate("MainWindow", "Remove Specks", Q_NULLPTR));
-        crop->setText(QApplication::translate("MainWindow", "Crop", Q_NULLPTR));
-
+        horizontalflip->setText(QApplication::translate("MainWindow", "Horizontal Flip", 0));
+        removespecks->setText(QApplication::translate("MainWindow", "Remove Specks", 0));
+        crop->setText(QApplication::translate("MainWindow", "Crop", 0));
     } // retranslateUi
 
 };
