@@ -17,30 +17,61 @@
    <layout class="QGridLayout" name="gridLayout_5">
     <item row="0" column="0">
      <layout class="QGridLayout" name="maingrid">
-      <item row="0" column="9" rowspan="9">
-       <widget class="Line" name="line_2">
+      <item row="6" column="12">
+       <widget class="QLabel" name="lblabel">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="11">
+       <widget class="QLabel" name="ublabel">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="8">
+       <widget class="QLabel" name="msgbox">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="8">
+       <widget class="QPushButton" name="clear">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Clear</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="10" rowspan="4" colspan="4">
-       <widget class="QCustomPlot" name="customPlot" native="true">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" rowspan="4" colspan="7">
+      <item row="0" column="0" rowspan="5" colspan="7">
        <widget class="QLabel" name="imagelabel">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -56,7 +87,43 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="8">
+      <item row="6" column="0" colspan="2">
+       <widget class="QPushButton" name="invertcolors">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Invert Colors</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="11">
+       <widget class="QPushButton" name="upperbound">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Upper Bound</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="8">
        <widget class="QPushButton" name="labellanes">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -71,57 +138,6 @@
         </property>
         <property name="text">
          <string>Label Lanes</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="8">
-       <widget class="QPushButton" name="removesmear">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Remove Smear</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="8">
-       <widget class="QPushButton" name="plot">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Plot</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0" colspan="5">
-       <widget class="QLineEdit" name="imgadd">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
         </property>
        </widget>
       </item>
@@ -143,20 +159,14 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="7" rowspan="9">
-       <widget class="Line" name="line">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
+      <item row="7" column="3">
+       <widget class="QPushButton" name="ContrastButton">
+        <property name="text">
+         <string>Contrast</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="8">
+      <item row="2" column="8">
        <widget class="QPushButton" name="detectlanes">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -174,26 +184,20 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="8">
-       <widget class="QPushButton" name="drawlanes">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
+      <item row="0" column="8">
+       <widget class="QLabel" name="msglabel">
         <property name="font">
          <font>
           <pointsize>10</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>Draw Lanes</string>
+         <string>Message</string>
         </property>
        </widget>
       </item>
-      <item row="6" column="3" colspan="2">
-       <widget class="QPushButton" name="orientation">
+      <item row="5" column="0" colspan="5">
+       <widget class="QLineEdit" name="imgadd">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -204,14 +208,11 @@
          <font>
           <pointsize>10</pointsize>
          </font>
-        </property>
-        <property name="text">
-         <string>Orientation</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="10">
-       <widget class="QPushButton" name="baseline">
+      <item row="8" column="2">
+       <widget class="QPushButton" name="verticalflip">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -224,7 +225,43 @@
          </font>
         </property>
         <property name="text">
-         <string>Baseline</string>
+         <string>Vertical Flip</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="6">
+       <widget class="QPushButton" name="undo">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Undo</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="12">
+       <widget class="QPushButton" name="lowerbound">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Lower Bound</string>
         </property>
        </widget>
       </item>
@@ -247,6 +284,49 @@
         </property>
        </widget>
       </item>
+      <item row="7" column="0">
+       <widget class="QPushButton" name="brightnessbutton">
+        <property name="text">
+         <string>Brightness</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="8">
+       <widget class="QPushButton" name="drawalllanes">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Draw All Lanes</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="10">
+       <widget class="QPushButton" name="baseline">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Baseline</string>
+        </property>
+       </widget>
+      </item>
       <item row="5" column="6">
        <widget class="QPushButton" name="reset">
         <property name="sizePolicy">
@@ -265,43 +345,7 @@
         </property>
        </widget>
       </item>
-      <item row="8" column="1" colspan="2">
-       <widget class="QPushButton" name="removespecks">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Remove Specks</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="2">
-       <widget class="QPushButton" name="linearize">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Linearize</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="11">
+      <item row="8" column="10">
        <widget class="QPushButton" name="background">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -319,84 +363,13 @@
         </property>
        </widget>
       </item>
-      <item row="8" column="5">
-       <widget class="QPushButton" name="verticalflip">
+      <item row="0" column="10" rowspan="5" colspan="4">
+       <widget class="QCustomPlot" name="customPlot" native="true">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Vertical Flip</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0" colspan="2">
-       <widget class="QPushButton" name="invertcolors">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Invert Colors</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="8">
-       <widget class="QCheckBox" name="checkBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Plot on
-same graph</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="4" colspan="2">
-       <widget class="QSlider" name="ContrastSlider">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="5">
-       <widget class="QPushButton" name="crop">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Crop</string>
         </property>
        </widget>
       </item>
@@ -418,7 +391,96 @@ same graph</string>
         </property>
        </widget>
       </item>
-      <item row="8" column="3" colspan="2">
+      <item row="6" column="13">
+       <widget class="QLabel" name="arealabel">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="2">
+       <widget class="QPushButton" name="linearize">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Linearize</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="4" colspan="2">
+       <widget class="QSlider" name="ContrastSlider">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sliderPosition">
+         <number>50</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="8">
+       <widget class="QPushButton" name="drawlanes">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Draw Lanes</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="9" rowspan="9">
+       <widget class="Line" name="line_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="10">
+       <widget class="QLabel" name="bllabel">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="1">
        <widget class="QPushButton" name="horizontalflip">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -437,17 +499,7 @@ same graph</string>
        </widget>
       </item>
       <item row="8" column="0">
-       <widget class="QSpinBox" name="speck">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="12">
-       <widget class="QPushButton" name="normalizearea">
+       <widget class="QPushButton" name="removespecks">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -460,21 +512,25 @@ same graph</string>
          </font>
         </property>
         <property name="text">
-         <string>Normalize Area</string>
+         <string>Remove Specks</string>
         </property>
        </widget>
       </item>
-      <item row="7" column="3">
-       <widget class="QPushButton" name="ContrastButton">
-        <property name="text">
-         <string>Contrast</string>
+      <item row="6" column="5">
+       <widget class="QPushButton" name="crop">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-       </widget>
-      </item>
-      <item row="7" column="0">
-       <widget class="QPushButton" name="brightnessbutton">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string>Brightness</string>
+         <string>Crop</string>
         </property>
        </widget>
       </item>
@@ -488,7 +544,7 @@ same graph</string>
      <x>0</x>
      <y>0</y>
      <width>1120</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
