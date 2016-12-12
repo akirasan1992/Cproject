@@ -37,8 +37,6 @@ private slots:
 
     void on_linearize_clicked();
 
-    void print_vec(vector<int> b);
-
     void on_detectlanes_clicked();
 
     void on_crop_clicked();
@@ -71,6 +69,32 @@ private slots:
 
     void on_undo_clicked();
 
+
+    QVector<double> generatex(int size);
+
+    void startmovingbaseline();
+    void graphhorizontalline(int size, double yval);
+    void movebaseline(QMouseEvent *event);
+    void confirmbaseline(QMouseEvent *event);
+    bool validimage();
+    bool validplot();
+    QColor randomqcolor();
+
+    void on_drawalllanes_clicked();
+
+    void on_upperbound_clicked();
+
+    void on_clear_clicked();
+    void graphupperbound(int size, double xval);
+    double maxqvec(QVector<double> aaa);
+    void startmovingbound();
+    void movebound(QMouseEvent *event);
+    void confirmbound(QMouseEvent *event);
+
+    void on_lowerbound_clicked();
+    void graphlowerbound(int size, double xval);
+
+
 private:
     Ui::MainWindow *ui;
     QImage image;
@@ -94,6 +118,14 @@ private:
     QVector<double> peaklocations;
     QVector<double> currdata;
     QStack<QImage> undoStack;
+
+    bool clickedbaseline = false;
+    double baselineval;
+    double upperbound;
+    double lowerbound;
+    bool clickedupperbound = false;
+    bool clickedlowerbound = false;
+
 };
 
 #endif // MAINWINDOW_H
