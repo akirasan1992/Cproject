@@ -35,39 +35,41 @@ public:
     QWidget *centralWidget;
     QGridLayout *gridLayout_5;
     QGridLayout *maingrid;
-    QLabel *lblabel;
-    QLabel *ublabel;
+    QLineEdit *imgadd;
+    QPushButton *ContrastButton;
+    QLabel *msglabel;
+    QPushButton *detectlanes;
+    QPushButton *undo;
     QLabel *msgbox;
     QPushButton *clear;
     QLabel *imagelabel;
     QPushButton *invertcolors;
     QPushButton *upperbound;
-    QPushButton *labellanes;
+    QPushButton *linearize;
+    QFrame *line_2;
     QPushButton *loadimage;
-    QPushButton *ContrastButton;
-    QPushButton *detectlanes;
-    QLabel *msglabel;
-    QLineEdit *imgadd;
-    QPushButton *verticalflip;
-    QPushButton *undo;
-    QPushButton *lowerbound;
+    QPushButton *reset;
     QSlider *BrightnessSlider;
     QPushButton *brightnessbutton;
-    QPushButton *drawalllanes;
     QPushButton *baseline;
-    QPushButton *reset;
-    QPushButton *background;
-    QCustomPlot *customPlot;
-    QPushButton *calculatearea;
-    QLabel *arealabel;
-    QPushButton *linearize;
-    QSlider *ContrastSlider;
-    QPushButton *drawlanes;
-    QFrame *line_2;
-    QLabel *bllabel;
-    QPushButton *horizontalflip;
+    QPushButton *drawalllanes;
+    QPushButton *lowerbound;
+    QPushButton *verticalflip;
     QPushButton *removespecks;
     QPushButton *crop;
+    QCustomPlot *customPlot;
+    QSlider *ContrastSlider;
+    QPushButton *labellanes;
+    QPushButton *horizontalflip;
+    QPushButton *drawlanes;
+    QPushButton *calculatearea;
+    QLabel *bllabel;
+    QLabel *ublabel;
+    QLabel *lblabel;
+    QLabel *arealabel;
+    QPushButton *normalize;
+    QPushButton *clearallgraphs;
+    QPushButton *legendonoff;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -76,7 +78,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1120, 720);
+        MainWindow->resize(1169, 720);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout_5 = new QGridLayout(centralWidget);
@@ -86,19 +88,47 @@ public:
         maingrid = new QGridLayout();
         maingrid->setSpacing(6);
         maingrid->setObjectName(QStringLiteral("maingrid"));
-        lblabel = new QLabel(centralWidget);
-        lblabel->setObjectName(QStringLiteral("lblabel"));
+        imgadd = new QLineEdit(centralWidget);
+        imgadd->setObjectName(QStringLiteral("imgadd"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(imgadd->sizePolicy().hasHeightForWidth());
+        imgadd->setSizePolicy(sizePolicy);
         QFont font;
         font.setPointSize(10);
-        lblabel->setFont(font);
+        imgadd->setFont(font);
 
-        maingrid->addWidget(lblabel, 6, 12, 1, 1);
+        maingrid->addWidget(imgadd, 5, 0, 1, 5);
 
-        ublabel = new QLabel(centralWidget);
-        ublabel->setObjectName(QStringLiteral("ublabel"));
-        ublabel->setFont(font);
+        ContrastButton = new QPushButton(centralWidget);
+        ContrastButton->setObjectName(QStringLiteral("ContrastButton"));
 
-        maingrid->addWidget(ublabel, 6, 11, 1, 1);
+        maingrid->addWidget(ContrastButton, 8, 3, 1, 1);
+
+        msglabel = new QLabel(centralWidget);
+        msglabel->setObjectName(QStringLiteral("msglabel"));
+        msglabel->setFont(font);
+
+        maingrid->addWidget(msglabel, 0, 8, 1, 1);
+
+        detectlanes = new QPushButton(centralWidget);
+        detectlanes->setObjectName(QStringLiteral("detectlanes"));
+        sizePolicy.setHeightForWidth(detectlanes->sizePolicy().hasHeightForWidth());
+        detectlanes->setSizePolicy(sizePolicy);
+        detectlanes->setFont(font);
+
+        maingrid->addWidget(detectlanes, 2, 8, 1, 1);
+
+        undo = new QPushButton(centralWidget);
+        undo->setObjectName(QStringLiteral("undo"));
+        sizePolicy.setHeightForWidth(undo->sizePolicy().hasHeightForWidth());
+        undo->setSizePolicy(sizePolicy);
+        QFont font1;
+        font1.setPointSize(9);
+        undo->setFont(font1);
+
+        maingrid->addWidget(undo, 7, 6, 1, 1);
 
         msgbox = new QLabel(centralWidget);
         msgbox->setObjectName(QStringLiteral("msgbox"));
@@ -108,14 +138,11 @@ public:
 
         clear = new QPushButton(centralWidget);
         clear->setObjectName(QStringLiteral("clear"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(clear->sizePolicy().hasHeightForWidth());
         clear->setSizePolicy(sizePolicy);
         clear->setFont(font);
 
-        maingrid->addWidget(clear, 8, 8, 1, 1);
+        maingrid->addWidget(clear, 9, 8, 1, 1);
 
         imagelabel = new QLabel(centralWidget);
         imagelabel->setObjectName(QStringLiteral("imagelabel"));
@@ -131,7 +158,7 @@ public:
         invertcolors->setSizePolicy(sizePolicy);
         invertcolors->setFont(font);
 
-        maingrid->addWidget(invertcolors, 6, 0, 1, 2);
+        maingrid->addWidget(invertcolors, 7, 0, 1, 2);
 
         upperbound = new QPushButton(centralWidget);
         upperbound->setObjectName(QStringLiteral("upperbound"));
@@ -141,13 +168,22 @@ public:
 
         maingrid->addWidget(upperbound, 5, 11, 1, 1);
 
-        labellanes = new QPushButton(centralWidget);
-        labellanes->setObjectName(QStringLiteral("labellanes"));
-        sizePolicy.setHeightForWidth(labellanes->sizePolicy().hasHeightForWidth());
-        labellanes->setSizePolicy(sizePolicy);
-        labellanes->setFont(font);
+        linearize = new QPushButton(centralWidget);
+        linearize->setObjectName(QStringLiteral("linearize"));
+        sizePolicy.setHeightForWidth(linearize->sizePolicy().hasHeightForWidth());
+        linearize->setSizePolicy(sizePolicy);
+        linearize->setFont(font);
 
-        maingrid->addWidget(labellanes, 3, 8, 1, 1);
+        maingrid->addWidget(linearize, 7, 2, 1, 1);
+
+        line_2 = new QFrame(centralWidget);
+        line_2->setObjectName(QStringLiteral("line_2"));
+        sizePolicy.setHeightForWidth(line_2->sizePolicy().hasHeightForWidth());
+        line_2->setSizePolicy(sizePolicy);
+        line_2->setFrameShape(QFrame::VLine);
+        line_2->setFrameShadow(QFrame::Sunken);
+
+        maingrid->addWidget(line_2, 0, 9, 10, 1);
 
         loadimage = new QPushButton(centralWidget);
         loadimage->setObjectName(QStringLiteral("loadimage"));
@@ -157,58 +193,13 @@ public:
 
         maingrid->addWidget(loadimage, 5, 5, 1, 1);
 
-        ContrastButton = new QPushButton(centralWidget);
-        ContrastButton->setObjectName(QStringLiteral("ContrastButton"));
+        reset = new QPushButton(centralWidget);
+        reset->setObjectName(QStringLiteral("reset"));
+        sizePolicy.setHeightForWidth(reset->sizePolicy().hasHeightForWidth());
+        reset->setSizePolicy(sizePolicy);
+        reset->setFont(font);
 
-        maingrid->addWidget(ContrastButton, 7, 3, 1, 1);
-
-        detectlanes = new QPushButton(centralWidget);
-        detectlanes->setObjectName(QStringLiteral("detectlanes"));
-        sizePolicy.setHeightForWidth(detectlanes->sizePolicy().hasHeightForWidth());
-        detectlanes->setSizePolicy(sizePolicy);
-        detectlanes->setFont(font);
-
-        maingrid->addWidget(detectlanes, 2, 8, 1, 1);
-
-        msglabel = new QLabel(centralWidget);
-        msglabel->setObjectName(QStringLiteral("msglabel"));
-        msglabel->setFont(font);
-
-        maingrid->addWidget(msglabel, 0, 8, 1, 1);
-
-        imgadd = new QLineEdit(centralWidget);
-        imgadd->setObjectName(QStringLiteral("imgadd"));
-        sizePolicy.setHeightForWidth(imgadd->sizePolicy().hasHeightForWidth());
-        imgadd->setSizePolicy(sizePolicy);
-        imgadd->setFont(font);
-
-        maingrid->addWidget(imgadd, 5, 0, 1, 5);
-
-        verticalflip = new QPushButton(centralWidget);
-        verticalflip->setObjectName(QStringLiteral("verticalflip"));
-        sizePolicy.setHeightForWidth(verticalflip->sizePolicy().hasHeightForWidth());
-        verticalflip->setSizePolicy(sizePolicy);
-        verticalflip->setFont(font);
-
-        maingrid->addWidget(verticalflip, 8, 2, 1, 1);
-
-        undo = new QPushButton(centralWidget);
-        undo->setObjectName(QStringLiteral("undo"));
-        sizePolicy.setHeightForWidth(undo->sizePolicy().hasHeightForWidth());
-        undo->setSizePolicy(sizePolicy);
-        QFont font1;
-        font1.setPointSize(9);
-        undo->setFont(font1);
-
-        maingrid->addWidget(undo, 6, 6, 1, 1);
-
-        lowerbound = new QPushButton(centralWidget);
-        lowerbound->setObjectName(QStringLiteral("lowerbound"));
-        sizePolicy.setHeightForWidth(lowerbound->sizePolicy().hasHeightForWidth());
-        lowerbound->setSizePolicy(sizePolicy);
-        lowerbound->setFont(font);
-
-        maingrid->addWidget(lowerbound, 5, 12, 1, 1);
+        maingrid->addWidget(reset, 5, 6, 1, 1);
 
         BrightnessSlider = new QSlider(centralWidget);
         BrightnessSlider->setObjectName(QStringLiteral("BrightnessSlider"));
@@ -218,20 +209,12 @@ public:
         BrightnessSlider->setMaximum(200);
         BrightnessSlider->setOrientation(Qt::Horizontal);
 
-        maingrid->addWidget(BrightnessSlider, 7, 1, 1, 2);
+        maingrid->addWidget(BrightnessSlider, 8, 1, 1, 2);
 
         brightnessbutton = new QPushButton(centralWidget);
         brightnessbutton->setObjectName(QStringLiteral("brightnessbutton"));
 
-        maingrid->addWidget(brightnessbutton, 7, 0, 1, 1);
-
-        drawalllanes = new QPushButton(centralWidget);
-        drawalllanes->setObjectName(QStringLiteral("drawalllanes"));
-        sizePolicy.setHeightForWidth(drawalllanes->sizePolicy().hasHeightForWidth());
-        drawalllanes->setSizePolicy(sizePolicy);
-        drawalllanes->setFont(font);
-
-        maingrid->addWidget(drawalllanes, 5, 8, 1, 1);
+        maingrid->addWidget(brightnessbutton, 8, 0, 1, 1);
 
         baseline = new QPushButton(centralWidget);
         baseline->setObjectName(QStringLiteral("baseline"));
@@ -241,21 +224,45 @@ public:
 
         maingrid->addWidget(baseline, 5, 10, 1, 1);
 
-        reset = new QPushButton(centralWidget);
-        reset->setObjectName(QStringLiteral("reset"));
-        sizePolicy.setHeightForWidth(reset->sizePolicy().hasHeightForWidth());
-        reset->setSizePolicy(sizePolicy);
-        reset->setFont(font);
+        drawalllanes = new QPushButton(centralWidget);
+        drawalllanes->setObjectName(QStringLiteral("drawalllanes"));
+        sizePolicy.setHeightForWidth(drawalllanes->sizePolicy().hasHeightForWidth());
+        drawalllanes->setSizePolicy(sizePolicy);
+        drawalllanes->setFont(font);
 
-        maingrid->addWidget(reset, 5, 6, 1, 1);
+        maingrid->addWidget(drawalllanes, 5, 8, 1, 1);
 
-        background = new QPushButton(centralWidget);
-        background->setObjectName(QStringLiteral("background"));
-        sizePolicy.setHeightForWidth(background->sizePolicy().hasHeightForWidth());
-        background->setSizePolicy(sizePolicy);
-        background->setFont(font);
+        lowerbound = new QPushButton(centralWidget);
+        lowerbound->setObjectName(QStringLiteral("lowerbound"));
+        sizePolicy.setHeightForWidth(lowerbound->sizePolicy().hasHeightForWidth());
+        lowerbound->setSizePolicy(sizePolicy);
+        lowerbound->setFont(font);
 
-        maingrid->addWidget(background, 8, 10, 1, 1);
+        maingrid->addWidget(lowerbound, 5, 12, 1, 1);
+
+        verticalflip = new QPushButton(centralWidget);
+        verticalflip->setObjectName(QStringLiteral("verticalflip"));
+        sizePolicy.setHeightForWidth(verticalflip->sizePolicy().hasHeightForWidth());
+        verticalflip->setSizePolicy(sizePolicy);
+        verticalflip->setFont(font);
+
+        maingrid->addWidget(verticalflip, 9, 2, 1, 1);
+
+        removespecks = new QPushButton(centralWidget);
+        removespecks->setObjectName(QStringLiteral("removespecks"));
+        sizePolicy.setHeightForWidth(removespecks->sizePolicy().hasHeightForWidth());
+        removespecks->setSizePolicy(sizePolicy);
+        removespecks->setFont(font);
+
+        maingrid->addWidget(removespecks, 9, 0, 1, 1);
+
+        crop = new QPushButton(centralWidget);
+        crop->setObjectName(QStringLiteral("crop"));
+        sizePolicy.setHeightForWidth(crop->sizePolicy().hasHeightForWidth());
+        crop->setSizePolicy(sizePolicy);
+        crop->setFont(font);
+
+        maingrid->addWidget(crop, 7, 5, 1, 1);
 
         customPlot = new QCustomPlot(centralWidget);
         customPlot->setObjectName(QStringLiteral("customPlot"));
@@ -264,28 +271,6 @@ public:
 
         maingrid->addWidget(customPlot, 0, 10, 5, 4);
 
-        calculatearea = new QPushButton(centralWidget);
-        calculatearea->setObjectName(QStringLiteral("calculatearea"));
-        sizePolicy.setHeightForWidth(calculatearea->sizePolicy().hasHeightForWidth());
-        calculatearea->setSizePolicy(sizePolicy);
-        calculatearea->setFont(font);
-
-        maingrid->addWidget(calculatearea, 5, 13, 1, 1);
-
-        arealabel = new QLabel(centralWidget);
-        arealabel->setObjectName(QStringLiteral("arealabel"));
-        arealabel->setFont(font);
-
-        maingrid->addWidget(arealabel, 6, 13, 1, 1);
-
-        linearize = new QPushButton(centralWidget);
-        linearize->setObjectName(QStringLiteral("linearize"));
-        sizePolicy.setHeightForWidth(linearize->sizePolicy().hasHeightForWidth());
-        linearize->setSizePolicy(sizePolicy);
-        linearize->setFont(font);
-
-        maingrid->addWidget(linearize, 6, 2, 1, 1);
-
         ContrastSlider = new QSlider(centralWidget);
         ContrastSlider->setObjectName(QStringLiteral("ContrastSlider"));
         sizePolicy.setHeightForWidth(ContrastSlider->sizePolicy().hasHeightForWidth());
@@ -293,7 +278,23 @@ public:
         ContrastSlider->setSliderPosition(50);
         ContrastSlider->setOrientation(Qt::Horizontal);
 
-        maingrid->addWidget(ContrastSlider, 7, 4, 1, 2);
+        maingrid->addWidget(ContrastSlider, 8, 4, 1, 2);
+
+        labellanes = new QPushButton(centralWidget);
+        labellanes->setObjectName(QStringLiteral("labellanes"));
+        sizePolicy.setHeightForWidth(labellanes->sizePolicy().hasHeightForWidth());
+        labellanes->setSizePolicy(sizePolicy);
+        labellanes->setFont(font);
+
+        maingrid->addWidget(labellanes, 3, 8, 1, 1);
+
+        horizontalflip = new QPushButton(centralWidget);
+        horizontalflip->setObjectName(QStringLiteral("horizontalflip"));
+        sizePolicy.setHeightForWidth(horizontalflip->sizePolicy().hasHeightForWidth());
+        horizontalflip->setSizePolicy(sizePolicy);
+        horizontalflip->setFont(font);
+
+        maingrid->addWidget(horizontalflip, 9, 1, 1, 1);
 
         drawlanes = new QPushButton(centralWidget);
         drawlanes->setObjectName(QStringLiteral("drawlanes"));
@@ -303,14 +304,13 @@ public:
 
         maingrid->addWidget(drawlanes, 4, 8, 1, 1);
 
-        line_2 = new QFrame(centralWidget);
-        line_2->setObjectName(QStringLiteral("line_2"));
-        sizePolicy.setHeightForWidth(line_2->sizePolicy().hasHeightForWidth());
-        line_2->setSizePolicy(sizePolicy);
-        line_2->setFrameShape(QFrame::VLine);
-        line_2->setFrameShadow(QFrame::Sunken);
+        calculatearea = new QPushButton(centralWidget);
+        calculatearea->setObjectName(QStringLiteral("calculatearea"));
+        sizePolicy.setHeightForWidth(calculatearea->sizePolicy().hasHeightForWidth());
+        calculatearea->setSizePolicy(sizePolicy);
+        calculatearea->setFont(font);
 
-        maingrid->addWidget(line_2, 0, 9, 9, 1);
+        maingrid->addWidget(calculatearea, 5, 13, 1, 1);
 
         bllabel = new QLabel(centralWidget);
         bllabel->setObjectName(QStringLiteral("bllabel"));
@@ -318,29 +318,47 @@ public:
 
         maingrid->addWidget(bllabel, 6, 10, 1, 1);
 
-        horizontalflip = new QPushButton(centralWidget);
-        horizontalflip->setObjectName(QStringLiteral("horizontalflip"));
-        sizePolicy.setHeightForWidth(horizontalflip->sizePolicy().hasHeightForWidth());
-        horizontalflip->setSizePolicy(sizePolicy);
-        horizontalflip->setFont(font);
+        ublabel = new QLabel(centralWidget);
+        ublabel->setObjectName(QStringLiteral("ublabel"));
+        ublabel->setFont(font);
 
-        maingrid->addWidget(horizontalflip, 8, 1, 1, 1);
+        maingrid->addWidget(ublabel, 6, 11, 1, 1);
 
-        removespecks = new QPushButton(centralWidget);
-        removespecks->setObjectName(QStringLiteral("removespecks"));
-        sizePolicy.setHeightForWidth(removespecks->sizePolicy().hasHeightForWidth());
-        removespecks->setSizePolicy(sizePolicy);
-        removespecks->setFont(font);
+        lblabel = new QLabel(centralWidget);
+        lblabel->setObjectName(QStringLiteral("lblabel"));
+        lblabel->setFont(font);
 
-        maingrid->addWidget(removespecks, 8, 0, 1, 1);
+        maingrid->addWidget(lblabel, 6, 12, 1, 1);
 
-        crop = new QPushButton(centralWidget);
-        crop->setObjectName(QStringLiteral("crop"));
-        sizePolicy.setHeightForWidth(crop->sizePolicy().hasHeightForWidth());
-        crop->setSizePolicy(sizePolicy);
-        crop->setFont(font);
+        arealabel = new QLabel(centralWidget);
+        arealabel->setObjectName(QStringLiteral("arealabel"));
+        arealabel->setFont(font);
 
-        maingrid->addWidget(crop, 6, 5, 1, 1);
+        maingrid->addWidget(arealabel, 6, 13, 1, 1);
+
+        normalize = new QPushButton(centralWidget);
+        normalize->setObjectName(QStringLiteral("normalize"));
+        sizePolicy.setHeightForWidth(normalize->sizePolicy().hasHeightForWidth());
+        normalize->setSizePolicy(sizePolicy);
+        normalize->setFont(font);
+
+        maingrid->addWidget(normalize, 7, 10, 1, 1);
+
+        clearallgraphs = new QPushButton(centralWidget);
+        clearallgraphs->setObjectName(QStringLiteral("clearallgraphs"));
+        sizePolicy.setHeightForWidth(clearallgraphs->sizePolicy().hasHeightForWidth());
+        clearallgraphs->setSizePolicy(sizePolicy);
+        clearallgraphs->setFont(font);
+
+        maingrid->addWidget(clearallgraphs, 7, 13, 1, 1);
+
+        legendonoff = new QPushButton(centralWidget);
+        legendonoff->setObjectName(QStringLiteral("legendonoff"));
+        sizePolicy.setHeightForWidth(legendonoff->sizePolicy().hasHeightForWidth());
+        legendonoff->setSizePolicy(sizePolicy);
+        legendonoff->setFont(font);
+
+        maingrid->addWidget(legendonoff, 7, 11, 1, 1);
 
 
         gridLayout_5->addLayout(maingrid, 0, 0, 1, 1);
@@ -348,7 +366,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1120, 22));
+        menuBar->setGeometry(QRect(0, 0, 1169, 22));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -365,34 +383,37 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
-        lblabel->setText(QString());
-        ublabel->setText(QString());
+        ContrastButton->setText(QApplication::translate("MainWindow", "Contrast", 0));
+        msglabel->setText(QApplication::translate("MainWindow", "Message", 0));
+        detectlanes->setText(QApplication::translate("MainWindow", "Detect Lanes", 0));
+        undo->setText(QApplication::translate("MainWindow", "Undo", 0));
         msgbox->setText(QString());
         clear->setText(QApplication::translate("MainWindow", "Clear", 0));
         imagelabel->setText(QString());
         invertcolors->setText(QApplication::translate("MainWindow", "Invert Colors", 0));
         upperbound->setText(QApplication::translate("MainWindow", "Upper Bound", 0));
-        labellanes->setText(QApplication::translate("MainWindow", "Label Lanes", 0));
-        loadimage->setText(QApplication::translate("MainWindow", "Load Image", 0));
-        ContrastButton->setText(QApplication::translate("MainWindow", "Contrast", 0));
-        detectlanes->setText(QApplication::translate("MainWindow", "Detect Lanes", 0));
-        msglabel->setText(QApplication::translate("MainWindow", "Message", 0));
-        verticalflip->setText(QApplication::translate("MainWindow", "Vertical Flip", 0));
-        undo->setText(QApplication::translate("MainWindow", "Undo", 0));
-        lowerbound->setText(QApplication::translate("MainWindow", "Lower Bound", 0));
-        brightnessbutton->setText(QApplication::translate("MainWindow", "Brightness", 0));
-        drawalllanes->setText(QApplication::translate("MainWindow", "Draw All Lanes", 0));
-        baseline->setText(QApplication::translate("MainWindow", "Baseline", 0));
-        reset->setText(QApplication::translate("MainWindow", "Reset", 0));
-        background->setText(QApplication::translate("MainWindow", "Background", 0));
-        calculatearea->setText(QApplication::translate("MainWindow", "Calculate Area", 0));
-        arealabel->setText(QString());
         linearize->setText(QApplication::translate("MainWindow", "Linearize", 0));
-        drawlanes->setText(QApplication::translate("MainWindow", "Draw Lanes", 0));
-        bllabel->setText(QString());
-        horizontalflip->setText(QApplication::translate("MainWindow", "Horizontal Flip", 0));
+        loadimage->setText(QApplication::translate("MainWindow", "Load Image", 0));
+        reset->setText(QApplication::translate("MainWindow", "Reset", 0));
+        brightnessbutton->setText(QApplication::translate("MainWindow", "Brightness", 0));
+        baseline->setText(QApplication::translate("MainWindow", "Baseline", 0));
+        drawalllanes->setText(QApplication::translate("MainWindow", "Draw All Lanes", 0));
+        lowerbound->setText(QApplication::translate("MainWindow", "Lower Bound", 0));
+        verticalflip->setText(QApplication::translate("MainWindow", "Vertical Flip", 0));
         removespecks->setText(QApplication::translate("MainWindow", "Remove Specks", 0));
         crop->setText(QApplication::translate("MainWindow", "Crop", 0));
+        labellanes->setText(QApplication::translate("MainWindow", "Label Lanes", 0));
+        horizontalflip->setText(QApplication::translate("MainWindow", "Horizontal Flip", 0));
+        drawlanes->setText(QApplication::translate("MainWindow", "Draw Lanes", 0));
+        calculatearea->setText(QApplication::translate("MainWindow", "Calculate Area", 0));
+        bllabel->setText(QString());
+        ublabel->setText(QString());
+        lblabel->setText(QString());
+        arealabel->setText(QString());
+        normalize->setText(QApplication::translate("MainWindow", "Normalize", 0));
+        clearallgraphs->setText(QApplication::translate("MainWindow", "Clear All Graphs", 0));
+        legendonoff->setText(QApplication::translate("MainWindow", "View/Hide\n"
+"Legend", 0));
     } // retranslateUi
 
 };

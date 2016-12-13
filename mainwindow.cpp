@@ -165,23 +165,19 @@ void MainWindow::on_reset_clicked()
 
 void MainWindow::on_crop_clicked()
 {
-
     if (validimage()) {
         isCropping = true;
         ui->crop->setFlat(true);
     }
-
 }
 
 void MainWindow::on_linearize_clicked()
 {
-
     if (validimage()) {
         QString imageaddress;
             imageaddress = ui->imgadd->text();
             undoStack.push(image);
             if(isGelFile)
-
             {
                 TIFF* tif = TIFFOpen(imageaddress.toStdString().c_str(), "r");
                 if(tif == nullptr)
@@ -224,11 +220,9 @@ void MainWindow::on_linearize_clicked()
                     TIFFClose(tif);
                 }
             }
-
             image=image.copy(0,0,image.width()/2,image.height());
             showpixmap(image);
     }
-
 }
 
 //  Brightness Functions
@@ -242,7 +236,6 @@ void MainWindow::on_brightnessbutton_clicked()
             undoStack.push(image);
             image=tempimage;
         }
-
     }
 }
 
@@ -280,10 +273,8 @@ void MainWindow::on_BrightnessSlider_changed(int value)
 
 void MainWindow::on_ContrastButton_clicked()
 {
-
     if (validimage()) {
         isContrast = !isContrast;
-
 
         ui->ContrastButton->setFlat(isContrast);
         if(isContrast==false)
@@ -405,17 +396,14 @@ void MainWindow::on_removespecks_clicked()
                     maxLen = 0;
                 }
 
-
                 int numPixInSpec = maxBandWidth / speckThreshold;
                 undoStack.push(image);
 
-   
                 for (int y = 0; y < image.height(); y++)
                 {
                     int len = 0;
                     for (int x = 0; x < image.width(); x++)
                     {
-
                         QRgb temp = image.pixel(x,y);
                         int grayVal = qGray(temp);
                         if(grayVal < darkThreshold)
@@ -433,7 +421,6 @@ void MainWindow::on_removespecks_clicked()
                             }
                             len = 0;
                         }
-
                     }
                 }
 
@@ -479,7 +466,6 @@ void MainWindow::on_detectlanes_clicked()
             showpixmap(aaa);
         }
     }
-
 }
 
 QVector<double> MainWindow::generatex(int size) {
@@ -488,17 +474,29 @@ QVector<double> MainWindow::generatex(int size) {
         x[i] = i;
     }
     return x;
-
 }
 
 void MainWindow::makePlot(QVector<double> x, QVector<double> y) {
     ui->customPlot->clearGraphs();
+    ui->customPlot->replot();
     ui->customPlot->addGraph();
     ui->customPlot->graph(0)->setData(x, y);
+    ui->customPlot->graph(0)->setName("Intensity Graph");
     ui->customPlot->xAxis->setLabel("x");
     ui->customPlot->yAxis->setLabel("y");
     ui->customPlot->rescaleAxes();
     ui->customPlot->replot();
+    numgraph = 0;
+    baselineval = 0;
+    lowerbound = 0;
+    upperbound = x.size();
+    setbaseline = false;
+    setupperbound = false;
+    setlowerbound = false;
+    ui->arealabel->clear();
+    ui->bllabel->clear();
+    ui->ublabel->clear();
+    ui->lblabel->clear();
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
@@ -578,7 +576,6 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 
 void MainWindow::on_drawlanes_clicked()
 {
-
     if (validimage()) {
         if (peaklocations.isEmpty()) {
             ui->msgbox->setText("Please detect\nlanes first.");
@@ -597,6 +594,8 @@ void MainWindow::on_drawlanes_clicked()
             }
             if (lanenumber <= 0) {
                 ui->msgbox->setText("Please enter a\npositive integer.");
+            } else if (lanenumber > peaklocations.size()) {
+                ui->msgbox->setText("Please enter a\nnumber less than\nmax lane number.");
             } else {
                 ui->msgbox->clear();
                 currdata.clear();
@@ -606,8 +605,7 @@ void MainWindow::on_drawlanes_clicked()
                     currdata.append(255-grayval);
                 }
                 QVector<double> x = generatex(image.height());
-                makePlot(x,currdata);
-                upperbound = image.height();
+                makePlot(x, currdata);
             }
         }
     }
@@ -646,12 +644,10 @@ void MainWindow::findpeaks() {
     QString text =  inputDialog.getText(NULL ,"number of lanes:",
                                              "number of lanes:", QLineEdit::Normal,
                                              "12", &ok);
-
     if (ok && !text.isEmpty())
     {
         n = atoi(text.toStdString().c_str());
     }
-
     if (n <= 0) {
         ui->msgbox->setText("Please enter a\npositive integer.");
     } else {
@@ -669,7 +665,6 @@ void MainWindow::findpeaks() {
                 peaklocations.append(value);
             }
         }
-
     }
 }
 
@@ -689,7 +684,7 @@ void MainWindow::on_labellanes_clicked()
             //QFont font("Helvetica");
             int labelsize = aaa.width()/2/peaklocations.size();
             fontt.setPixelSize(labelsize);
-            paintpen.setWidth(image.width()/300);
+            paintpen.setWidth(image.width()/150);
             int i = 1;
             for (double location: peaklocations) {
                 paint.setPen (paintpen);
@@ -739,17 +734,14 @@ void MainWindow::modifylabel(QVector<double> &init) {
     } else {
         detectioncomplete = true;
     }
-
 }
 
 void MainWindow::on_calculatearea_clicked()
 {
     if (validplot()) {
-        int sum = 0;
+        double sum = 0;
         for (int i=lowerbound; i<upperbound; i++) {
-            if (currdata[i] - baselineval > 0) {
-                sum+=(currdata[i] - baselineval);
-            }
+            sum+=currdata[i];
         }
         QString aaa("area = ");
         aaa.append(QString::number(sum));
@@ -760,30 +752,32 @@ void MainWindow::on_calculatearea_clicked()
 void MainWindow::graphhorizontalline(int size, double yval) {
     QVector<double> x = generatex(size);
     QVector<double> y(size, yval);
-    ui->customPlot->addGraph();
-    ui->customPlot->graph(1)->setData(x, y);
-    ui->customPlot->graph(1)->setPen(QPen(QColor(255, 100, 0)));
-    ui->customPlot->graph(1)->setLineStyle(QCPGraph::lsLine);
+    ui->customPlot->graph(numbaseline)->setData(x, y);
+    ui->customPlot->graph(numbaseline)->setPen(QPen(QColor(255, 100, 0)));
+    ui->customPlot->graph(numbaseline)->setLineStyle(QCPGraph::lsLine);
+    ui->customPlot->graph(numbaseline)->setVisible(true);
     ui->customPlot->replot();
 }
 
-void MainWindow::graphupperbound(int size, double xval) {
-    QVector<double> y = generatex(size);
-    QVector<double> x(size, xval);
-    ui->customPlot->addGraph();
-    ui->customPlot->graph(2)->setData(x, y);
-    ui->customPlot->graph(2)->setPen(QPen(QColor(0, 204, 0)));
-    ui->customPlot->graph(2)->setLineStyle(QCPGraph::lsLine);
+void MainWindow::graphupperbound(double size, double xval) {
+    QVector<double> y;
+    y.append(0);
+    y.append(size);
+    QVector<double> x(y.size(), xval);
+    ui->customPlot->graph(numupperbound)->setData(x, y);
+    ui->customPlot->graph(numupperbound)->setPen(QPen(QColor(0, 204, 0)));
+    ui->customPlot->graph(numupperbound)->setLineStyle(QCPGraph::lsLine);
     ui->customPlot->replot();
 }
 
-void MainWindow::graphlowerbound(int size, double xval) {
-    QVector<double> y = generatex(size);
-    QVector<double> x(size, xval);
-    ui->customPlot->addGraph();
-    ui->customPlot->graph(3)->setData(x, y);
-    ui->customPlot->graph(3)->setPen(QPen(QColor(255, 102, 178)));
-    ui->customPlot->graph(3)->setLineStyle(QCPGraph::lsLine);
+void MainWindow::graphlowerbound(double size, double xval) {
+    QVector<double> y;
+    y.append(0);
+    y.append(size);
+    QVector<double> x(y.size(), xval);
+    ui->customPlot->graph(numlowerbound)->setData(x, y);
+    ui->customPlot->graph(numlowerbound)->setPen(QPen(QColor(255, 102, 178)));
+    ui->customPlot->graph(numlowerbound)->setLineStyle(QCPGraph::lsLine);
     ui->customPlot->replot();
 }
 
@@ -791,6 +785,13 @@ void MainWindow::on_baseline_clicked()
 {
     if (validplot()) {
         if (!clickedbaseline) {
+            if (!setbaseline) {
+                setbaseline = true;
+                ui->customPlot->addGraph();
+                numgraph+=1;
+                numbaseline = numgraph;
+                ui->customPlot->graph(numbaseline)->setName("Baseline");
+            }
             ui->baseline->setFlat(true);
             clickedbaseline = true;
             graphhorizontalline(currdata.size(), baselineval);
@@ -801,9 +802,22 @@ void MainWindow::on_baseline_clicked()
             disconnect(ui->customPlot, SIGNAL(mouseRelease(QMouseEvent*)), this,SLOT(confirmbaseline(QMouseEvent*)));
             ui->baseline->setFlat(false);
             clickedbaseline = false;
+            ui->customPlot->graph(numbaseline)->setVisible(false);
             QString aaa("baseline level\n= ");
             aaa.append(QString::number(baselineval));
             ui->bllabel->setText(aaa);
+            QVector<double> temp(currdata);
+            currdata.clear();
+            for (double data : temp) {
+                if (data-baselineval > 0) {
+                    currdata.append(data-baselineval);
+                } else {
+                    currdata.append(0);
+                }
+            }
+            QVector<double> x = generatex(currdata.size());
+            ui->customPlot->graph(0)->setData(x, currdata);
+            ui->customPlot->replot();
         }
     }
 }
@@ -853,8 +867,13 @@ void MainWindow::on_drawalllanes_clicked()
             ui->msgbox->setText("Please detect\nlanes first.");
         } else {
             ui->customPlot->clearGraphs();
+			ui->customPlot->replot();
             ui->msgbox->clear();
             currdata.clear();
+            ui->arealabel->clear();
+            ui->bllabel->clear();
+			ui->ublabel->clear();
+            ui->lblabel->clear();
             QVector<double> x = generatex(image.height());
             for (int i=0; i<peaklocations.size(); i++) {
                 QVector<double> aaa;
@@ -863,8 +882,11 @@ void MainWindow::on_drawalllanes_clicked()
                     int grayval = qGray(temp);
                     aaa.append(255-grayval);
                 }
+				QString name("Lane ");
+                name.append(QString::number(i+1));
                 ui->customPlot->addGraph();
                 ui->customPlot->graph(i)->setData(x, aaa);
+                ui->customPlot->graph(i)->setName(name);
                 ui->customPlot->graph(i)->setPen(QPen(randomqcolor()));
                 ui->customPlot->graph(i)->setLineStyle(QCPGraph::lsLine);
                 ui->customPlot->rescaleAxes();
@@ -878,6 +900,13 @@ void MainWindow::on_upperbound_clicked()
 {
     if (validplot()) {
         if (!clickedupperbound) {
+			if (!setupperbound) {
+                setupperbound = true;
+                ui->customPlot->addGraph();
+                numgraph+=1;
+                numupperbound = numgraph;
+                ui->customPlot->graph(numupperbound)->setName("Upper Bound");
+            }
             ui->upperbound->setFlat(true);
             clickedupperbound = true;
             graphupperbound(maxqvec(currdata), upperbound);
@@ -899,6 +928,13 @@ void MainWindow::on_lowerbound_clicked()
 {
     if (validplot()) {
         if (!clickedlowerbound) {
+            if (!setlowerbound) {
+                setlowerbound = true;
+                ui->customPlot->addGraph();
+                numgraph+=1;
+                numlowerbound = numgraph;
+                ui->customPlot->graph(numlowerbound)->setName("Lower Bound");
+            }
             ui->lowerbound->setFlat(true);
             clickedlowerbound = true;
             graphlowerbound(maxqvec(currdata), lowerbound);
@@ -949,10 +985,46 @@ void MainWindow::confirmbound(QMouseEvent *event) {
     connect(ui->customPlot, SIGNAL(mousePress(QMouseEvent*)), this,SLOT(startmovingbound()));
 }
 
+void MainWindow::on_normalize_clicked()
+{
+    if (validplot()) {
+        double sum = 0;
+        for (double yval: currdata) {
+            sum+=yval;
+        }
+        QVector<double> temp(currdata);
+        currdata.clear();
+        for (double yvall: temp) {
+            currdata.append(yvall/sum);
+        }
+        QVector<double> x = generatex(currdata.size());
+        makePlot(x, currdata);
+    }
+}
+
+void MainWindow::on_legendonoff_clicked()
+{
+    if (ui->customPlot->legend->visible()) {
+        ui->customPlot->legend->setVisible(false);
+        ui->customPlot->replot();
+    } else {
+        ui->customPlot->legend->setVisible(true);
+        ui->customPlot->replot();
+    }
+}
+
+void MainWindow::on_clearallgraphs_clicked()
+{
+    ui->customPlot->clearGraphs();
+    ui->customPlot->replot();
+    currdata.clear();
+    ui->arealabel->clear();
+    ui->ublabel->clear();
+    ui->lblabel->clear();
+}
 void MainWindow::on_clear_clicked()
 {
     showpixmap(image);
-
 }
 
 void MainWindow::on_undo_clicked()

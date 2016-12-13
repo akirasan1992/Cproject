@@ -69,7 +69,6 @@ private slots:
 
     void on_undo_clicked();
 
-
     QVector<double> generatex(int size);
 
     void startmovingbaseline();
@@ -85,15 +84,20 @@ private slots:
     void on_upperbound_clicked();
 
     void on_clear_clicked();
-    void graphupperbound(int size, double xval);
+    void graphupperbound(double size, double xval);
     double maxqvec(QVector<double> aaa);
     void startmovingbound();
     void movebound(QMouseEvent *event);
     void confirmbound(QMouseEvent *event);
 
     void on_lowerbound_clicked();
-    void graphlowerbound(int size, double xval);
+    void graphlowerbound(double size, double xval);
 
+    void on_normalize_clicked();
+
+    void on_legendonoff_clicked();
+
+    void on_clearallgraphs_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -118,14 +122,19 @@ private:
     QVector<double> peaklocations;
     QVector<double> currdata;
     QStack<QImage> undoStack;
-
     bool clickedbaseline = false;
     double baselineval;
     double upperbound;
     double lowerbound;
     bool clickedupperbound = false;
     bool clickedlowerbound = false;
-
+    bool setbaseline = false;
+    bool setupperbound = false;
+    bool setlowerbound = false;
+    int numgraph;
+    int numbaseline;
+    int numupperbound;
+    int numlowerbound;
 };
 
 #endif // MAINWINDOW_H
