@@ -571,6 +571,24 @@ Legend</string>
         </property>
        </widget>
       </item>
+      <item row="7" column="8">
+       <widget class="QPushButton" name="save">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Save</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>
@@ -581,7 +599,7 @@ Legend</string>
      <x>0</x>
      <y>0</y>
      <width>1169</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

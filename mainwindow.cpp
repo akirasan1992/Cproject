@@ -430,6 +430,22 @@ void MainWindow::on_removespecks_clicked()
     }
 }
 
+//Save button function
+
+void MainWindow::on_save_clicked()
+{
+    if (validimage())
+    {
+        QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                   "C:\\untitled.png",
+                                   tr("Images (*.png)"));
+        image.save(fileName,"PNG");
+    }
+
+}
+
+
+
 void MainWindow::on_detectlanes_clicked()
 {
     if (validimage()) {

@@ -70,6 +70,7 @@ public:
     QPushButton *normalize;
     QPushButton *clearallgraphs;
     QPushButton *legendonoff;
+    QPushButton *save;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -360,13 +361,21 @@ public:
 
         maingrid->addWidget(legendonoff, 7, 11, 1, 1);
 
+        save = new QPushButton(centralWidget);
+        save->setObjectName(QStringLiteral("save"));
+        sizePolicy.setHeightForWidth(save->sizePolicy().hasHeightForWidth());
+        save->setSizePolicy(sizePolicy);
+        save->setFont(font1);
+
+        maingrid->addWidget(save, 7, 8, 1, 1);
+
 
         gridLayout_5->addLayout(maingrid, 0, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1169, 22));
+        menuBar->setGeometry(QRect(0, 0, 1169, 21));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -414,6 +423,7 @@ public:
         clearallgraphs->setText(QApplication::translate("MainWindow", "Clear All Graphs", 0));
         legendonoff->setText(QApplication::translate("MainWindow", "View/Hide\n"
 "Legend", 0));
+        save->setText(QApplication::translate("MainWindow", "Save", 0));
     } // retranslateUi
 
 };

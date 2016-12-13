@@ -98,6 +98,7 @@ private slots:
     void on_legendonoff_clicked();
 
     void on_clearallgraphs_clicked();
+    void on_save_clicked();
 
 private:
     Ui::MainWindow *ui;
